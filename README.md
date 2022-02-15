@@ -174,7 +174,7 @@ SOFTWARE.
 [code-quality]: https://lgtm.com/projects/g/klaasnicolaas/python-autarco/context:python
 [commits-shield]: https://img.shields.io/github/commit-activity/y/klaasnicolaas/python-autarco.svg
 [commits-url]: https://github.com/klaasnicolaas/python-autarco/commits/master
-[codecov-shield]: https://codecov.io/gh/klaasnicolaas/python-autarco/branch/master/graph/badge.svg?token=VQTR24YFQ9
+[codecov-shield]: https://codecov.io/gh/klaasnicolaas/python-autarco/branch/master/graph/badge.svg?token=JM72C3T2AT
 [codecov-url]: https://codecov.io/gh/klaasnicolaas/python-autarco
 [forks-shield]: https://img.shields.io/github/forks/klaasnicolaas/python-autarco.svg
 [forks-url]: https://github.com/klaasnicolaas/python-autarco/network/members
@@ -183,7 +183,7 @@ SOFTWARE.
 [license-shield]: https://img.shields.io/github/license/klaasnicolaas/python-autarco.svg
 [last-commit-shield]: https://img.shields.io/github/last-commit/klaasnicolaas/python-autarco.svg
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2022.svg
-[maintainability-shield]: https://api.codeclimate.com/v1/badges/443c476612a574d82467/maintainability
+[maintainability-shield]: https://api.codeclimate.com/v1/badges/d38cdaa8625b6657d40b/maintainability
 [maintainability-url]: https://codeclimate.com/github/klaasnicolaas/python-autarco/maintainability
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-experimental-yellow.svg
 [pypi]: https://pypi.org/project/autarco/
