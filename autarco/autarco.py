@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import asyncio
 import socket
-from collections.abc import Mapping
 from dataclasses import dataclass
 from importlib import metadata
 from typing import Any
@@ -27,8 +26,7 @@ from .models import Account, Inverter, Solar
 class Autarco:
     """Main class for handling connections to Autarco."""
 
-    public_key: str
-    username: str
+    email: str
     password: str
 
     request_timeout: float = 10.0
@@ -41,8 +39,8 @@ class Autarco:
         uri: str,
         *,
         method: str = METH_GET,
-        params: Mapping[str, str] | None = None,
-    ) -> dict[str, Any]:
+        data: dict[str, Any] | None = None,
+    ) -> Any:
         """Handle a request to the Autarco API.
 
         A generic method for sending/handling HTTP requests done against
@@ -51,13 +49,13 @@ class Autarco:
         Args:
             uri: Request URI, without '/', for example, 'status'.
             method: HTTP method to use.
-            params: Dictionary of parameters to send to the Autarco API.
+            data: Dictionary of data send to the Autarco API.
 
         Returns:
             The response data from the Autarco API.
 
         Raises:
-            AutarcoAuthenticationError: If the username or password is invalid.
+            AutarcoAuthenticationError: If the email or password is invalid.
             AutarcoConnectionError: An error occurred while communicating
                 with the Autarco API.
             AutarcoConnectionTimeoutError: A timeout occurred while communicating
@@ -80,7 +78,7 @@ class Autarco:
             self._close_session = True
 
         # Set basic auth credentials.
-        auth = aiohttp.BasicAuth(self.username, self.password)
+        auth = aiohttp.BasicAuth(self.email, self.password)
 
         try:
             async with async_timeout.timeout(self.request_timeout):
@@ -89,7 +87,7 @@ class Autarco:
                     url,
                     auth=auth,
                     headers=headers,
-                    params=params,
+                    json=data,
                     ssl=True,
                 )
                 response.raise_for_status()
@@ -120,37 +118,58 @@ class Autarco:
 
         return await response.json()
 
-    async def all_inverters(self) -> Inverter:
+    async def get_public_key(self) -> str:
+        """Get the public key.
+
+        Returns:
+            The public key as string.
+        """
+
+        data = await self._request("")
+        key: str = data[0]["public_key"]
+        return key
+
+    async def all_inverters(self, public_key: str) -> dict[str, Inverter]:
         """Get a list of all used inverters.
+
+        Args:
+            public_key: The public key from your account.
 
         Returns:
             A list of Inverter objects.
         """
-        results = []
+        results: dict[str, Any] = {}
 
-        data = await self._request(f"{self.public_key}/power")
-        for item in data["inverters"].items():
-            results.append(Inverter.from_json(item))
+        data = await self._request(f"{public_key}/power")
+        for number, item in enumerate(data["inverters"].items(), 1):
+            inverter = Inverter.from_json(item)
+            results[f"Inverter {number}"] = inverter
         return results
 
-    async def solar(self) -> Solar:
-        """Get.
+    async def solar(self, public_key: str) -> Solar:
+        """Get information about the solar production.
+
+        Args:
+            public_key: The public key from your account.
 
         Returns:
             An Solar object.
         """
 
-        data = await self._request(f"{self.public_key}/")
+        data = await self._request(f"{public_key}/")
         return Solar.from_json(data)
 
-    async def account(self) -> Account:
-        """Get.
+    async def account(self, public_key: str) -> Account:
+        """Get information about your account.
+
+        Args:
+            public_key: The public key from your account.
 
         Returns:
             An Account object.
         """
 
-        data = await self._request(f"{self.public_key}/")
+        data = await self._request(f"{public_key}/")
         return Account.from_json(data)
 
     async def close(self) -> None:
@@ -166,7 +185,7 @@ class Autarco:
         """
         return self
 
-    async def __aexit__(self, *_exc_info) -> None:
+    async def __aexit__(self, *_exc_info: Any) -> None:
         """Async exit.
 
         Args:
