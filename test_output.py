@@ -9,18 +9,22 @@ from autarco import Account, Autarco, Inverter, Solar
 async def main():
     """Test."""
     async with Autarco(  # noqa: S106
-        public_key="123456789",
-        username="test@autarco.com",
-        password="test",
+        email="test@autarco.com",
+        password="password",
     ) as autarco:
-        inverters: Inverter = await autarco.all_inverters()
-        solar: Solar = await autarco.solar()
-        account: Account = await autarco.account()
+        public_key = await autarco.get_public_key()
+
+        inverters: dict[str, Inverter] = await autarco.all_inverters(public_key)
+        solar: Solar = await autarco.solar(public_key)
+        account: Account = await autarco.account(public_key)
+
+        print(f"Public key: {public_key}")
+        print()
 
         print("--- INVERTER(S) ---")
         print(inverters)
         print()
-        for item in inverters:
+        for item in inverters.values():
             print(item)
         print()
 

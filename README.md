@@ -24,13 +24,16 @@ Asynchronous Python client for the Autarco Inverters.
 
 A python package with which you can read the data of your [Autarco][autarco]
 Inverter(s). This is done by making a request to the [My Autarco][my-autarco]
-platform, for this you will need the `public_key`, `username` and `password`.
+platform, for this you will need the `email` and `password`.
 The data on the platform is updated every 5 minutes.
 
 ### Public key
 
 You can find this in the url after logging in,
 example: `https://my.autarco.com/site/{public_key}`
+
+Or by using the `get_public_key` method, that will
+return your key.
 
 ## Installation
 
@@ -49,13 +52,14 @@ from autarco import Autarco
 async def main():
     """Show example on getting Autarco data."""
     async with Autarco(
-        public_key="key",
-        username="autarco@test.com",
+        email="test@autarco.com",
         password="password",
     ) as client:
-        inverters = await client.all_inverter()
-        solar = await client.solar()
-        account = await client.account()
+        public_key = await client.get_public_key()
+
+        inverters = await client.all_inverters(public_key)
+        solar = await client.solar(public_key)
+        account = await client.account(public_key)
         print(inverters)
         print(solar)
         print(account)
@@ -174,7 +178,7 @@ SOFTWARE.
 [code-quality]: https://lgtm.com/projects/g/klaasnicolaas/python-autarco/context:python
 [commits-shield]: https://img.shields.io/github/commit-activity/y/klaasnicolaas/python-autarco.svg
 [commits-url]: https://github.com/klaasnicolaas/python-autarco/commits/master
-[codecov-shield]: https://codecov.io/gh/klaasnicolaas/python-autarco/branch/master/graph/badge.svg?token=JM72C3T2AT
+[codecov-shield]: https://codecov.io/gh/klaasnicolaas/python-autarco/branch/main/graph/badge.svg?token=JM72C3T2AT
 [codecov-url]: https://codecov.io/gh/klaasnicolaas/python-autarco
 [forks-shield]: https://img.shields.io/github/forks/klaasnicolaas/python-autarco.svg
 [forks-url]: https://github.com/klaasnicolaas/python-autarco/network/members

@@ -32,8 +32,7 @@ async def test_json_request(aresponses):
     )
     async with aiohttp.ClientSession() as session:
         client = Autarco(  # noqa: S106
-            public_key="fake_key",
-            username="autarco",
+            email="test@autarco.com",
             password="energy",
             session=session,
         )
@@ -55,7 +54,7 @@ async def test_internal_session(aresponses):
         ),
     )
     async with Autarco(  # noqa: S106
-        public_key="fake_key", username="autarco", password="energy"
+        email="test@autarco.com", password="energy"
     ) as autarco:
         await autarco._request("test")
 
@@ -74,8 +73,7 @@ async def test_timeout(aresponses):
 
     async with aiohttp.ClientSession() as session:
         client = Autarco(  # noqa: S106
-            public_key="fake_key",
-            username="autarco",
+            email="test@autarco.com",
             password="energy",
             session=session,
             request_timeout=0.1,
@@ -99,8 +97,7 @@ async def test_content_type(aresponses):
 
     async with aiohttp.ClientSession() as session:
         client = Autarco(  # noqa: S106
-            public_key="fake_key",
-            username="autarco",
+            email="test@autarco.com",
             password="energy",
             session=session,
         )
@@ -113,8 +110,7 @@ async def test_client_error():
     """Test request client error from Autarco API."""
     async with aiohttp.ClientSession() as session:
         client = Autarco(  # noqa: S106
-            public_key="fake_key",
-            username="autarco",
+            email="test@autarco.com",
             password="energy",
             session=session,
         )
@@ -136,8 +132,7 @@ async def test_http_error400(aresponses):
 
     async with aiohttp.ClientSession() as session:
         client = Autarco(  # noqa: S106
-            public_key="fake_key",
-            username="autarco",
+            email="test@autarco.com",
             password="energy",
             session=session,
         )
@@ -157,8 +152,7 @@ async def test_http_error401(aresponses):
 
     async with aiohttp.ClientSession() as session:
         client = Autarco(  # noqa: S106
-            public_key="fake_key",
-            username="autarco",
+            email="test@autarco.com",
             password="energy",
             session=session,
         )
