@@ -9,14 +9,14 @@ from typing import Any
 class Inverter:
     """Object representing an Inverter model response from the API."""
 
-    serial_number: str
-    out_ac_power: int
-    out_ac_energy_total: int
-    grid_turned_off: bool
-    health: str
+    serial_number: str | None
+    out_ac_power: int | None
+    out_ac_energy_total: int | None
+    grid_turned_off: bool | None
+    health: str | None
 
     @classmethod
-    def from_json(cls, data: dict[str, Any]) -> Inverter:
+    def from_json(cls, data: dict[str | int, Any]) -> Inverter:
         """Create an Inverter object from a JSON response.
 
         Args:
@@ -39,10 +39,10 @@ class Inverter:
 class Solar:
     """Object representing a Solar model response from the API."""
 
-    power_production: int
-    energy_production_today: int
-    energy_production_month: int
-    energy_production_total: int
+    power_production: int | None
+    energy_production_today: int | None
+    energy_production_month: int | None
+    energy_production_total: int | None
 
     @staticmethod
     def from_json(data: dict[str, Any]) -> Solar:
@@ -67,12 +67,12 @@ class Solar:
 class Account:
     """Object representing an Account model response from the API."""
 
-    public_key: str
-    name: str
-    city: str
-    state: str
-    country: str
-    timezone: str
+    public_key: str | None
+    name: str | None
+    city: str | None
+    state: str | None
+    country: str | None
+    timezone: str | None
 
     @staticmethod
     def from_json(data: dict[str, Any]) -> Account:

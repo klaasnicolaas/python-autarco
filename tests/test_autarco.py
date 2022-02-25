@@ -5,6 +5,7 @@ from unittest.mock import patch
 
 import aiohttp
 import pytest
+from aresponses import Response, ResponsesMockServer
 
 from autarco import Autarco
 from autarco.exceptions import (
@@ -18,7 +19,7 @@ from . import load_fixtures
 
 
 @pytest.mark.asyncio
-async def test_json_request(aresponses):
+async def test_json_request(aresponses: ResponsesMockServer) -> None:
     """Test JSON response is handled correctly."""
     aresponses.add(
         "my.autarco.com",
@@ -41,7 +42,7 @@ async def test_json_request(aresponses):
 
 
 @pytest.mark.asyncio
-async def test_internal_session(aresponses):
+async def test_internal_session(aresponses: ResponsesMockServer) -> None:
     """Test JSON response is handled correctly."""
     aresponses.add(
         "my.autarco.com",
@@ -60,10 +61,10 @@ async def test_internal_session(aresponses):
 
 
 @pytest.mark.asyncio
-async def test_timeout(aresponses):
+async def test_timeout(aresponses: ResponsesMockServer) -> None:
     """Test request timeout from Autarco API."""
     # Faking a timeout by sleeping
-    async def response_handler(_):
+    async def response_handler(_: aiohttp.ClientResponse) -> Response:
         await asyncio.sleep(0.2)
         return aresponses.Response(
             body="Goodmorning!", text=load_fixtures("autarco.json")
@@ -83,7 +84,7 @@ async def test_timeout(aresponses):
 
 
 @pytest.mark.asyncio
-async def test_content_type(aresponses):
+async def test_content_type(aresponses: ResponsesMockServer) -> None:
     """Test request content type error from Autarco API."""
     aresponses.add(
         "my.autarco.com",
@@ -106,7 +107,7 @@ async def test_content_type(aresponses):
 
 
 @pytest.mark.asyncio
-async def test_client_error():
+async def test_client_error() -> None:
     """Test request client error from Autarco API."""
     async with aiohttp.ClientSession() as session:
         client = Autarco(  # noqa: S106
@@ -121,7 +122,7 @@ async def test_client_error():
 
 
 @pytest.mark.asyncio
-async def test_http_error400(aresponses):
+async def test_http_error400(aresponses: ResponsesMockServer) -> None:
     """Test HTTP 404 response handling."""
     aresponses.add(
         "my.autarco.com",
@@ -141,7 +142,7 @@ async def test_http_error400(aresponses):
 
 
 @pytest.mark.asyncio
-async def test_http_error401(aresponses):
+async def test_http_error401(aresponses: ResponsesMockServer) -> None:
     """Test HTTP 401 response handling."""
     aresponses.add(
         "my.autarco.com",
