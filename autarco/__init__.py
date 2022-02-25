@@ -1,7 +1,7 @@
 """Asynchronous Python client for the Autarco API."""
 
-from .autarco import (
-    Autarco,
+from .autarco import Autarco
+from .exceptions import (
     AutarcoAuthenticationError,
     AutarcoConnectionError,
     AutarcoConnectionTimeoutError,

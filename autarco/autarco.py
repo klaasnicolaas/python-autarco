@@ -116,7 +116,8 @@ class Autarco:
                 {"Content-Type": content_type, "response": text},
             )
 
-        return await response.json()
+        response_data: dict[str, Any] = await response.json(content_type=None)
+        return response_data
 
     async def get_public_key(self) -> str:
         """Get the public key.
