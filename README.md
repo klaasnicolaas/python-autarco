@@ -32,6 +32,9 @@ The data on the platform is updated every 5 minutes.
 You can find this in the url after logging in,
 example: `https://my.autarco.com/site/{public_key}`
 
+Or by using the `get_public_key` method, that will
+return your key.
+
 ## Installation
 
 ```bash
@@ -49,12 +52,14 @@ from autarco import Autarco
 async def main():
     """Show example on getting Autarco data."""
     async with Autarco(
-        email="autarco@example.com",
+        email="test@autarco.com",
         password="password",
     ) as client:
-        inverters = await client.all_inverters()
-        solar = await client.solar()
-        account = await client.account()
+        public_key = await client.get_public_key()
+
+        inverters = await client.all_inverters(public_key)
+        solar = await client.solar(public_key)
+        account = await client.account(public_key)
         print(inverters)
         print(solar)
         print(account)
