@@ -918,7 +918,7 @@ testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", 
 
 [[package]]
 name = "vulture"
-version = "2.4"
+version = "2.5"
 description = "Find dead code"
 category = "dev"
 optional = false
@@ -962,7 +962,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "3bac589f4dc17841861f5ef10117256b0ae21ebfd3e60d1fdd8a79c5d3c228b8"
+content-hash = "38b04bb710e24aaacefe651f7374268707c3f9576b205896092d4652484a2c4d"
 
 [metadata.files]
 aiohttp = []
