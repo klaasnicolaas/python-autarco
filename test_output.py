@@ -6,7 +6,7 @@ import asyncio
 from autarco import Account, Autarco, Inverter, Solar
 
 
-async def main():
+async def main() -> None:
     """Test."""
     async with Autarco(  # noqa: S106
         email="test@autarco.com",
@@ -49,5 +49,4 @@ async def main():
 
 
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+    asyncio.run(main())
