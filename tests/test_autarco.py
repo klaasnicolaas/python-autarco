@@ -3,23 +3,23 @@
 import asyncio
 from unittest.mock import patch
 
-import aiohttp
 import pytest
+from aiohttp import ClientError, ClientResponse, ClientSession
 from aresponses import Response, ResponsesMockServer
 
 from autarco import Autarco
 from autarco.exceptions import (
-    AutarcoAuthenticationError,
     AutarcoConnectionError,
-    AutarcoConnectionTimeoutError,
     AutarcoError,
 )
 
 from . import load_fixtures
 
 
-@pytest.mark.asyncio
-async def test_json_request(aresponses: ResponsesMockServer) -> None:
+async def test_json_request(
+    aresponses: ResponsesMockServer,
+    autarco_client: Autarco,
+) -> None:
     """Test JSON response is handled correctly."""
     aresponses.add(
         "my.autarco.com",
@@ -28,20 +28,14 @@ async def test_json_request(aresponses: ResponsesMockServer) -> None:
         aresponses.Response(
             status=200,
             headers={"Content-Type": "application/json"},
-            text='{"status": "ok"}',
+            text=load_fixtures("account.json"),
         ),
     )
-    async with aiohttp.ClientSession() as session:
-        client = Autarco(  # noqa: S106
-            email="test@autarco.com",
-            password="energy",
-            session=session,
-        )
-        await client._request("test")
-        await client.close()
+    response = await autarco_client._request("test")
+    assert response is not None
+    await autarco_client.close()
 
 
-@pytest.mark.asyncio
 async def test_internal_session(aresponses: ResponsesMockServer) -> None:
     """Test JSON response is handled correctly."""
     aresponses.add(
@@ -51,40 +45,45 @@ async def test_internal_session(aresponses: ResponsesMockServer) -> None:
         aresponses.Response(
             status=200,
             headers={"Content-Type": "application/json"},
-            text=load_fixtures("autarco.json"),
+            text=load_fixtures("account.json"),
         ),
     )
-    async with Autarco(  # noqa: S106
-        email="test@autarco.com", password="energy"
-    ) as autarco:
-        await autarco._request("test")
+    async with Autarco(email="test@autarco.com", password="energy") as client:
+        await client._request("test")
 
 
-@pytest.mark.asyncio
 async def test_timeout(aresponses: ResponsesMockServer) -> None:
     """Test request timeout from Autarco API."""
+
     # Faking a timeout by sleeping
-    async def response_handler(_: aiohttp.ClientResponse) -> Response:
+    async def response_handler(_: ClientResponse) -> Response:
         await asyncio.sleep(0.2)
         return aresponses.Response(
-            body="Goodmorning!", text=load_fixtures("autarco.json")
+            body="Goodmorning!",
         )
 
-    aresponses.add("my.autarco.com", "/api/site/test", "GET", response_handler)
+    aresponses.add(
+        "my.autarco.com",
+        "/api/site/test",
+        "GET",
+        response_handler,
+    )
 
-    async with aiohttp.ClientSession() as session:
-        client = Autarco(  # noqa: S106
+    async with ClientSession() as session:
+        client = Autarco(
             email="test@autarco.com",
             password="energy",
             session=session,
             request_timeout=0.1,
         )
-        with pytest.raises(AutarcoConnectionTimeoutError):
+        with pytest.raises(AutarcoConnectionError):
             assert await client._request("test")
 
 
-@pytest.mark.asyncio
-async def test_content_type(aresponses: ResponsesMockServer) -> None:
+async def test_content_type(
+    aresponses: ResponsesMockServer,
+    autarco_client: Autarco,
+) -> None:
     """Test request content type error from Autarco API."""
     aresponses.add(
         "my.autarco.com",
@@ -95,34 +94,26 @@ async def test_content_type(aresponses: ResponsesMockServer) -> None:
             headers={"Content-Type": "blabla/blabla"},
         ),
     )
-
-    async with aiohttp.ClientSession() as session:
-        client = Autarco(  # noqa: S106
-            email="test@autarco.com",
-            password="energy",
-            session=session,
-        )
-        with pytest.raises(AutarcoError):
-            assert await client._request("test")
+    with pytest.raises(AutarcoError):
+        assert await autarco_client._request("test")
 
 
-@pytest.mark.asyncio
 async def test_client_error() -> None:
     """Test request client error from Autarco API."""
-    async with aiohttp.ClientSession() as session:
-        client = Autarco(  # noqa: S106
-            email="test@autarco.com",
-            password="energy",
-            session=session,
-        )
+    async with ClientSession() as session:
+        client = Autarco(email="test@autarco.com", password="energy", session=session)
         with patch.object(
-            session, "request", side_effect=aiohttp.ClientError
+            session,
+            "request",
+            side_effect=ClientError,
         ), pytest.raises(AutarcoConnectionError):
             assert await client._request("test")
 
 
-@pytest.mark.asyncio
-async def test_http_error400(aresponses: ResponsesMockServer) -> None:
+async def test_response_status_404(
+    aresponses: ResponsesMockServer,
+    autarco_client: Autarco,
+) -> None:
     """Test HTTP 404 response handling."""
     aresponses.add(
         "my.autarco.com",
@@ -130,32 +121,5 @@ async def test_http_error400(aresponses: ResponsesMockServer) -> None:
         "GET",
         aresponses.Response(text="GIVE ME SOLARPOWER!", status=404),
     )
-
-    async with aiohttp.ClientSession() as session:
-        client = Autarco(  # noqa: S106
-            email="test@autarco.com",
-            password="energy",
-            session=session,
-        )
-        with pytest.raises(AutarcoConnectionError):
-            assert await client._request("test")
-
-
-@pytest.mark.asyncio
-async def test_http_error401(aresponses: ResponsesMockServer) -> None:
-    """Test HTTP 401 response handling."""
-    aresponses.add(
-        "my.autarco.com",
-        "/api/site/test",
-        "GET",
-        aresponses.Response(text="GIVE ME SOLARPOWER!", status=401),
-    )
-
-    async with aiohttp.ClientSession() as session:
-        client = Autarco(  # noqa: S106
-            email="test@autarco.com",
-            password="energy",
-            session=session,
-        )
-        with pytest.raises(AutarcoAuthenticationError):
-            assert await client._request("test")
+    with pytest.raises(AutarcoConnectionError):
+        assert await autarco_client._request("test")

@@ -23,7 +23,7 @@ async def test_all_inverters(aresponses: ResponsesMockServer) -> None:
     )
 
     async with aiohttp.ClientSession() as session:
-        client = Autarco(  # noqa: S106
+        client = Autarco(
             email="test@autarco.com",
             password="energy",
             session=session,
@@ -55,7 +55,7 @@ async def test_solar(aresponses: ResponsesMockServer) -> None:
     )
 
     async with aiohttp.ClientSession() as session:
-        client = Autarco(  # noqa: S106
+        client = Autarco(
             email="test@autarco.com",
             password="energy",
             session=session,
@@ -83,7 +83,7 @@ async def test_account(aresponses: ResponsesMockServer) -> None:
     )
 
     async with aiohttp.ClientSession() as session:
-        client = Autarco(  # noqa: S106
+        client = Autarco(
             email="test@autarco.com",
             password="energy",
             session=session,
@@ -113,7 +113,7 @@ async def test_get_public_key(aresponses: ResponsesMockServer) -> None:
     )
 
     async with aiohttp.ClientSession() as session:
-        client = Autarco(  # noqa: S106
+        client = Autarco(
             email="test@autarco.com",
             password="energy",
             session=session,

@@ -1,6 +1,11 @@
 [
-    {
-        "public_key": "sd6fv516",
-        "name": "Autarco Integration"
-    }
+  {
+    "name_retailer": "Home Assistant",
+    "public_key": "sd6fv516",
+    "name": "My Autarco solar installation",
+    "address": "Streetname 00",
+    "city": "Valkenswaard",
+    "country": "NL",
+    "date": "2023-05-15"
+  }
 ]

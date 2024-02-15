@@ -14,7 +14,6 @@ from yarl import URL
 from .exceptions import (
     AutarcoAuthenticationError,
     AutarcoConnectionError,
-    AutarcoConnectionTimeoutError,
     AutarcoError,
 )
 from .models import Account, Inverter, Solar
@@ -98,7 +97,7 @@ class Autarco:
                 response.raise_for_status()
         except TimeoutError as exception:
             msg = "Timeout occurred while connecting to Autarco API"
-            raise AutarcoConnectionTimeoutError(msg) from exception
+            raise AutarcoConnectionError(msg) from exception
         except ClientResponseError as exception:
             if exception.status == 401:
                 msg = "Authentication to the Autarco API failed"
@@ -132,7 +131,7 @@ class Autarco:
         key: str = data[0]["public_key"]
         return key
 
-    async def all_inverters(self, public_key: str) -> dict[str, Inverter]:
+    async def inverters(self, public_key: str) -> list[Inverter]:
         """Get a list of all used inverters.
 
         Args:
