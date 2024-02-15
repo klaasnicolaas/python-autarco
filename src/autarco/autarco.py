@@ -5,11 +5,9 @@ import asyncio
 import socket
 from dataclasses import dataclass
 from importlib import metadata
-from typing import Any
+from typing import Any, Self, cast
 
-import aiohttp
-import async_timeout
-from aiohttp.client import ClientError, ClientResponseError, ClientSession
+from aiohttp import BasicAuth, ClientError, ClientResponseError, ClientSession
 from aiohttp.hdrs import METH_GET
 from yarl import URL
 
@@ -20,6 +18,8 @@ from .exceptions import (
     AutarcoError,
 )
 from .models import Account, Inverter, Solar
+
+VERSION = metadata.version(__package__)
 
 
 @dataclass
@@ -47,14 +47,17 @@ class Autarco:
         the Autarco API.
 
         Args:
+        ----
             uri: Request URI, without '/', for example, 'status'.
             method: HTTP method to use.
             data: Dictionary of data send to the Autarco API.
 
         Returns:
+        -------
             The response data from the Autarco API.
 
         Raises:
+        ------
             AutarcoAuthenticationError: If the email or password is invalid.
             AutarcoConnectionError: An error occurred while communicating
                 with the Autarco API.
@@ -62,15 +65,15 @@ class Autarco:
                 with the Autarco API.
             AutarcoError: Received an unexpected response from the
                 Autarco API.
+
         """
-        version = metadata.version(__package__)
         url = URL.build(scheme="https", host="my.autarco.com", path="/api/site/").join(
             URL(uri)
         )
 
         headers = {
             "Accept": "application/json",
-            "User-Agent": f"PythonAutarco/{version}",
+            "User-Agent": f"PythonAutarco/{VERSION}",
         }
 
         if self.session is None:
@@ -78,10 +81,10 @@ class Autarco:
             self._close_session = True
 
         # Set basic auth credentials.
-        auth = aiohttp.BasicAuth(self.email, self.password)
+        auth = BasicAuth(self.email, self.password)
 
         try:
-            async with async_timeout.timeout(self.request_timeout):
+            async with asyncio.timeout(self.request_timeout):
                 response = await self.session.request(
                     method,
                     url,
@@ -91,41 +94,38 @@ class Autarco:
                     ssl=True,
                 )
                 response.raise_for_status()
-        except asyncio.TimeoutError as exception:
-            raise AutarcoConnectionTimeoutError(
-                "Timeout occurred while connecting to Autarco API"
-            ) from exception
+        except TimeoutError as exception:
+            msg = "Timeout occurred while connecting to Autarco API"
+            raise AutarcoConnectionTimeoutError(msg) from exception
         except ClientResponseError as exception:
             if exception.status == 401:
-                raise AutarcoAuthenticationError(
-                    "Authentication to the Autarco API failed"
-                ) from exception
-            raise AutarcoConnectionError(
-                "Error occurred while connecting to the Autarco API"
-            ) from exception
+                msg = "Authentication to the Autarco API failed"
+                raise AutarcoAuthenticationError(msg) from exception
+            msg = "Error occurred while communicating with the Autarco API"
+            raise AutarcoConnectionError(msg) from exception
         except (ClientError, socket.gaierror) as exception:
-            raise AutarcoConnectionError(
-                "Error occurred while communicating with the Autarco API"
-            ) from exception
+            msg = "Error occurred while communicating with the Autarco API"
+            raise AutarcoConnectionError(msg) from exception
 
         content_type = response.headers.get("Content-Type", "")
         if "application/json" not in content_type:
             text = await response.text()
+            msg = "Unexpected response from the Autarco API"
             raise AutarcoError(
-                "Unexpected response from the Autarco API",
+                msg,
                 {"Content-Type": content_type, "response": text},
             )
 
-        response_data: dict[str, Any] = await response.json(content_type=None)
-        return response_data
+        return cast(dict[str, Any], await response.json())
 
     async def get_public_key(self) -> str:
         """Get the public key.
 
-        Returns:
+        Returns
+        -------
             The public key as string.
-        """
 
+        """
         data = await self._request("")
         key: str = data[0]["public_key"]
         return key
@@ -134,10 +134,13 @@ class Autarco:
         """Get a list of all used inverters.
 
         Args:
+        ----
             public_key: The public key from your account.
 
         Returns:
+        -------
             A list of Inverter objects.
+
         """
         results: dict[str, Any] = {}
 
@@ -151,12 +154,14 @@ class Autarco:
         """Get information about the solar production.
 
         Args:
+        ----
             public_key: The public key from your account.
 
         Returns:
+        -------
             An Solar object.
-        """
 
+        """
         data = await self._request(f"{public_key}/")
         return Solar.from_json(data)
 
@@ -164,12 +169,14 @@ class Autarco:
         """Get information about your account.
 
         Args:
+        ----
             public_key: The public key from your account.
 
         Returns:
+        -------
             An Account object.
-        """
 
+        """
         data = await self._request(f"{public_key}/")
         return Account.from_json(data)
 
@@ -178,18 +185,22 @@ class Autarco:
         if self.session and self._close_session:
             await self.session.close()
 
-    async def __aenter__(self) -> Autarco:
+    async def __aenter__(self) -> Self:
         """Async enter.
 
-        Returns:
+        Returns
+        -------
             The Autarco object.
+
         """
         return self
 
-    async def __aexit__(self, *_exc_info: Any) -> None:
+    async def __aexit__(self, *_exc_info: object) -> None:
         """Async exit.
 
         Args:
+        ----
             _exc_info: Exec type.
+
         """
         await self.close()

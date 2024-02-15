@@ -20,10 +20,13 @@ class Inverter:
         """Create an Inverter object from a JSON response.
 
         Args:
+        ----
             data: JSON response from the API.
 
         Returns:
+        -------
             An Inverter object.
+
         """
         data = data[1]
         return cls(
@@ -49,10 +52,13 @@ class Solar:
         """Create an Solar object from a JSON response.
 
         Args:
+        ----
             data: JSON response from the API.
 
         Returns:
+        -------
             An Solar object.
+
         """
         data = data["stats"]["kpis"]
         return Solar(
@@ -79,10 +85,13 @@ class Account:
         """Create an Account object from a JSON response.
 
         Args:
+        ----
             data: JSON response from the API.
 
         Returns:
+        -------
             An Account object.
+
         """
         data = data["site"]
         address = data["address"]
