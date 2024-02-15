@@ -67,9 +67,11 @@ class Autarco:
                 Autarco API.
 
         """
-        url = URL.build(scheme="https", host="my.autarco.com", path="/api/site/").join(
-            URL(uri)
-        )
+        url = URL.build(
+            scheme="https",
+            host="my.autarco.com",
+            path="/api/site/",
+        ).join(URL(uri))
 
         headers = {
             "Accept": "application/json",
