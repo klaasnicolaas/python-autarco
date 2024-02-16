@@ -1,5 +1,4 @@
 """Test the Autarco models."""
-from aiohttp import ClientSession
 from aresponses import ResponsesMockServer
 from syrupy.assertion import SnapshotAssertion
 
