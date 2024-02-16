@@ -1,5 +1,6 @@
 ---
 ignore: |
+  ./venv/lib
   .github/workflows
 rules:
   braces:
