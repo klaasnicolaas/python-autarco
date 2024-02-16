@@ -1,6 +1,6 @@
 # serializer version: 1
 # name: test_get_account
-  Account(public_key='sd6fv516', name='My Autarco solar installation', address=Address(street='Streetname 00', zip_code='1111 AA', city='Valkenswaard', country='Nederland'), timezone='Europe/Amsterdam', dt_created=datetime.date(2023, 5, 15), has_consumption_meter=False, has_battery=False)
+  Account(public_key='sd6fv516', name='My Autarco solar installation', address=Address(street='Streetname 00', zip_code='1111 AA', city='Valkenswaard', country='Nederland'), timezone='Europe/Amsterdam', created_at=datetime.date(2023, 5, 15), has_consumption_meter=False, has_battery=False)
 # ---
 # name: test_get_inverters
   dict({

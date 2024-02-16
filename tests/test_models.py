@@ -1,8 +1,10 @@
 """Test the Autarco models."""
+from datetime import date
+
 from aresponses import ResponsesMockServer
 from syrupy.assertion import SnapshotAssertion
 
-from autarco import Account, Autarco, Inverter, Solar
+from autarco import Account, Autarco, DateStrategy, Inverter, Solar
 
 from . import load_fixtures
 
@@ -100,3 +102,9 @@ async def test_get_public_key(
     public_key = await autarco_client.get_public_key()
     assert public_key == snapshot
     assert public_key == "sd6fv516"
+
+
+def test_serialize_date() -> None:
+    """Test the serialization of a date object."""
+    test_date = date(2021, 8, 1)
+    assert DateStrategy().serialize(test_date) == "2021-08-01"

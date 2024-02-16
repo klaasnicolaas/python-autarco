@@ -6,7 +6,21 @@ from datetime import date
 from typing import Any
 
 from mashumaro import DataClassDictMixin, field_options
+from mashumaro.config import BaseConfig
 from mashumaro.mixins.orjson import DataClassORJSONMixin
+from mashumaro.types import SerializationStrategy
+
+
+class DateStrategy(SerializationStrategy):
+    """Date serialization strategy to handle the date format."""
+
+    def serialize(self, value: date) -> str:
+        """Serialize date to string."""
+        return value.strftime("%Y-%m-%d")
+
+    def deserialize(self, value: str) -> date:
+        """Deserialize string to date."""
+        return date.fromisoformat(value)
 
 
 @dataclass
@@ -49,16 +63,19 @@ class Solar(DataClassDictMixin):
 class Account(DataClassORJSONMixin):
     """Object representing an Account model response from the API."""
 
+    # pylint: disable-next=too-few-public-methods
+    class Config(BaseConfig):
+        """Mashumaro configuration."""
+
+        serialization_strategy = {date: DateStrategy()}  # noqa: RUF012
+        serialize_by_alias = True
+
     public_key: str
     name: str
     address: Address
 
     timezone: str
-    dt_created: date = field(
-        metadata=field_options(
-            alias="dt_created", deserialize=lambda x: date.fromisoformat(x)
-        )
-    )
+    created_at: date = field(metadata=field_options(alias="dt_created"))
     has_consumption_meter: bool
     has_battery: bool
 
