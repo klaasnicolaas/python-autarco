@@ -1,4 +1,3 @@
-# pylint: disable=W0621
 """Asynchronous Python client for the Autarco API."""
 
 import asyncio
@@ -8,12 +7,12 @@ from autarco import Autarco
 
 async def main() -> None:
     """Show example on getting Autarco - solar data."""
-    async with Autarco(  # noqa: S106
+    async with Autarco(
         email="test@autarco.com",
         password="password",
     ) as client:
         public_key = await client.get_public_key()
-        solar = await client.solar(public_key)
+        solar = await client.get_solar(public_key)
         print(solar)
 
 

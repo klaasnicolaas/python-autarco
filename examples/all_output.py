@@ -1,4 +1,3 @@
-# pylint: disable=W0621
 """Asynchronous Python client for the Autarco API."""
 
 import asyncio
@@ -8,15 +7,15 @@ from autarco import Account, Autarco, Inverter, Solar
 
 async def main() -> None:
     """Test."""
-    async with Autarco(  # noqa: S106
+    async with Autarco(
         email="test@autarco.com",
         password="password",
     ) as autarco:
         public_key = await autarco.get_public_key()
 
-        inverters: dict[str, Inverter] = await autarco.all_inverters(public_key)
-        solar: Solar = await autarco.solar(public_key)
-        account: Account = await autarco.account(public_key)
+        inverters: dict[str, Inverter] = await autarco.get_inverters(public_key)
+        solar: Solar = await autarco.get_solar(public_key)
+        account: Account = await autarco.get_account(public_key)
 
         print(f"Public key: {public_key}")
         print()
@@ -42,10 +41,9 @@ async def main() -> None:
         print()
         print(f"Public Key: {account.public_key}")
         print(f"Name: {account.name}")
-        print(f"City: {account.city}")
-        print(f"State: {account.state}")
-        print(f"Country: {account.country}")
         print(f"Timezone: {account.timezone}")
+        print(f"City: {account.address.city}")
+        print(f"Country: {account.address.country}")
 
 
 if __name__ == "__main__":

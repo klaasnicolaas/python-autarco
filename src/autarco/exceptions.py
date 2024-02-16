@@ -11,7 +11,3 @@ class AutarcoConnectionError(AutarcoError):
 
 class AutarcoAuthenticationError(AutarcoError):
     """Autarco Authentication exception."""
-
-
-class AutarcoConnectionTimeoutError(AutarcoError):
-    """Autarco connection timeout exception."""

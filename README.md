@@ -1,4 +1,5 @@
-## Python - Autarco Client
+<!-- Banner -->
+![alt Banner of the Autarco package](https://raw.githubusercontent.com/klaasnicolaas/python-autarco/main/assets/header_autarco-min.png)
 
 <!-- PROJECT SHIELDS -->
 [![GitHub Release][releases-shield]][releases]
@@ -8,17 +9,14 @@
 [![License][license-shield]](LICENSE)
 
 [![GitHub Activity][commits-shield]][commits-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
+[![PyPi Downloads][downloads-shield]][downloads-url]
 [![GitHub Last Commit][last-commit-shield]][commits-url]
-
-[![Code Quality][code-quality-shield]][code-quality]
-[![Maintainability][maintainability-shield]][maintainability-url]
-[![Code Coverage][codecov-shield]][codecov-url]
+[![Open in Dev Containers][devcontainer-shield]][devcontainer]
 
 [![Build Status][build-shield]][build-url]
 [![Typing Status][typing-shield]][typing-url]
+[![Maintainability][maintainability-shield]][maintainability-url]
+[![Code Coverage][codecov-shield]][codecov-url]
 
 Asynchronous Python client for the Autarco Inverters.
 
@@ -93,19 +91,40 @@ You can read the following data with this package:
 
 - Public Key (str)
 - Name (str)
-- City (str)
-- State (str)
-- Country (str)
+- Address (dict)
+  - Street (str)
+  - Zip Code (str)
+  - City (str)
+  - Country (str)
 - Timezone (str)
+- Created At (date)
+- Has consumption meter (bool)
+- Has battery (bool)
+
+## Contributing
+
+This is an active open-source project. We are always open to people who want to
+use the code or contribute to it.
+
+We've set up a separate document for our
+[contribution guidelines](CONTRIBUTING.md).
+
+Thank you for being involved! :heart_eyes:
 
 ## Setting up development environment
 
-This Python project is fully managed using the [Poetry][poetry] dependency
-manager.
+The simplest way to begin is by utilizing the [Dev Container][devcontainer]
+feature of Visual Studio Code or by opening a CodeSpace directly on GitHub.
+By clicking the button below you immediately start a Dev Container in Visual Studio Code.
+
+[![Open in Dev Containers][devcontainer-shield]][devcontainer]
+
+This Python project relies on [Poetry][poetry] as its dependency manager,
+providing comprehensive management and control over project dependencies.
 
 You need at least:
 
-- Python 3.9+
+- Python 3.11+
 - [Poetry][poetry-install]
 
 Install all packages, including all development requirements:
@@ -144,11 +163,17 @@ To run just the Python tests:
 poetry run pytest
 ```
 
+To update the [syrupy](https://github.com/tophat/syrupy) snapshot tests:
+
+```bash
+poetry run pytest --snapshot-update
+```
+
 ## License
 
 MIT License
 
-Copyright (c) 2022 Klaas Schoute
+Copyright (c) 2022-2024 Klaas Schoute
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -175,30 +200,26 @@ SOFTWARE.
 <!-- MARKDOWN LINKS & IMAGES -->
 [build-shield]: https://github.com/klaasnicolaas/python-autarco/actions/workflows/tests.yaml/badge.svg
 [build-url]: https://github.com/klaasnicolaas/python-autarco/actions/workflows/tests.yaml
-[code-quality-shield]: https://img.shields.io/lgtm/grade/python/g/klaasnicolaas/python-autarco.svg?logo=lgtm&logoWidth=18
-[code-quality]: https://lgtm.com/projects/g/klaasnicolaas/python-autarco/context:python
-[commits-shield]: https://img.shields.io/github/commit-activity/y/klaasnicolaas/python-autarco.svg
-[commits-url]: https://github.com/klaasnicolaas/python-autarco/commits/master
 [codecov-shield]: https://codecov.io/gh/klaasnicolaas/python-autarco/branch/main/graph/badge.svg?token=JM72C3T2AT
 [codecov-url]: https://codecov.io/gh/klaasnicolaas/python-autarco
-[forks-shield]: https://img.shields.io/github/forks/klaasnicolaas/python-autarco.svg
-[forks-url]: https://github.com/klaasnicolaas/python-autarco/network/members
-[issues-shield]: https://img.shields.io/github/issues/klaasnicolaas/python-autarco.svg
-[issues-url]: https://github.com/klaasnicolaas/python-autarco/issues
-[license-shield]: https://img.shields.io/github/license/klaasnicolaas/python-autarco.svg
+[commits-shield]: https://img.shields.io/github/commit-activity/y/klaasnicolaas/python-autarco.svg
+[commits-url]: https://github.com/klaasnicolaas/python-autarco/commits/master
+[devcontainer-shield]: https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode
+[devcontainer]: https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/klaasnicolaas/python-autarco
+[downloads-shield]: https://img.shields.io/pypi/dm/autarco
+[downloads-url]: https://pypistats.org/packages/autarco
 [last-commit-shield]: https://img.shields.io/github/last-commit/klaasnicolaas/python-autarco.svg
-[maintenance-shield]: https://img.shields.io/maintenance/yes/2022.svg
+[license-shield]: https://img.shields.io/github/license/klaasnicolaas/python-autarco.svg
 [maintainability-shield]: https://api.codeclimate.com/v1/badges/d38cdaa8625b6657d40b/maintainability
 [maintainability-url]: https://codeclimate.com/github/klaasnicolaas/python-autarco/maintainability
+[maintenance-shield]: https://img.shields.io/maintenance/yes/2024.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-experimental-yellow.svg
 [pypi]: https://pypi.org/project/autarco/
 [python-versions-shield]: https://img.shields.io/pypi/pyversions/autarco
-[typing-shield]: https://github.com/klaasnicolaas/python-autarco/actions/workflows/typing.yaml/badge.svg
-[typing-url]: https://github.com/klaasnicolaas/python-autarco/actions/workflows/typing.yaml
 [releases-shield]: https://img.shields.io/github/release/klaasnicolaas/python-autarco.svg
 [releases]: https://github.com/klaasnicolaas/python-autarco/releases
-[stars-shield]: https://img.shields.io/github/stars/klaasnicolaas/python-autarco.svg
-[stars-url]: https://github.com/klaasnicolaas/python-autarco/stargazers
+[typing-shield]: https://github.com/klaasnicolaas/python-autarco/actions/workflows/typing.yaml/badge.svg
+[typing-url]: https://github.com/klaasnicolaas/python-autarco/actions/workflows/typing.yaml
 
 <!-- Development -->
 [poetry-install]: https://python-poetry.org/docs/#installation
