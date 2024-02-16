@@ -12,7 +12,7 @@ async def main() -> None:
         password="password",
     ) as client:
         public_key = await client.get_public_key()
-        inverters = await client.all_inverters(public_key)
+        inverters = await client.get_inverters(public_key)
         print(inverters)
 
 

@@ -12,7 +12,7 @@ async def main() -> None:
         password="password",
     ) as client:
         public_key = await client.get_public_key()
-        account = await client.account(public_key)
+        account = await client.get_account(public_key)
         print(account)
 
 

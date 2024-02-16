@@ -1,0 +1,16 @@
+# serializer version: 1
+# name: test_get_account
+  Account(public_key='sd6fv516', name='My Autarco solar installation', address=Address(street='Streetname 00', zip_code='1111 AA', city='Valkenswaard', country='Nederland'), timezone='Europe/Amsterdam', dt_created=datetime.date(2023, 5, 15), has_consumption_meter=False, has_battery=False)
+# ---
+# name: test_get_inverters
+  dict({
+    '123456789876': Inverter(serial_number='123456789876', out_ac_power=100, out_ac_energy_total=6605, grid_turned_off=False, health='OK'),
+    '987654321234': Inverter(serial_number='987654321234', out_ac_power=100, out_ac_energy_total=3607, grid_turned_off=False, health='OK'),
+  })
+# ---
+# name: test_get_public_key
+  'sd6fv516'
+# ---
+# name: test_get_solar
+  Solar(power_production=200, energy_production_today=4, energy_production_month=58, energy_production_total=10379)
+# ---

@@ -12,7 +12,7 @@ async def main() -> None:
         password="password",
     ) as client:
         public_key = await client.get_public_key()
-        solar = await client.solar(public_key)
+        solar = await client.get_solar(public_key)
         print(solar)
 
 

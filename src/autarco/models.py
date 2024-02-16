@@ -1,105 +1,73 @@
 """Models for Autarco."""
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from datetime import date
 from typing import Any
 
+from mashumaro import DataClassDictMixin, field_options
+from mashumaro.mixins.orjson import DataClassORJSONMixin
+
 
 @dataclass
-class Inverter:
+class PowerResponse(DataClassORJSONMixin):
     """Object representing an Inverter model response from the API."""
 
-    serial_number: str | None
-    out_ac_power: int | None
-    out_ac_energy_total: int | None
-    grid_turned_off: bool | None
-    health: str | None
-
-    @classmethod
-    def from_json(cls, data: dict[str | int, Any]) -> Inverter:
-        """Create an Inverter object from a JSON response.
-
-        Args:
-        ----
-            data: JSON response from the API.
-
-        Returns:
-        -------
-            An Inverter object.
-
-        """
-        data = data[1]
-        return cls(
-            serial_number=data.get("sn"),
-            out_ac_power=data.get("out_ac_power"),
-            out_ac_energy_total=data.get("out_ac_energy_total"),
-            grid_turned_off=data.get("grid_turned_off"),
-            health=data.get("health"),
-        )
+    inverters: dict[str, Inverter]
+    stats: dict[str, dict[str, int]]
 
 
 @dataclass
-class Solar:
+class EnergyResponse(DataClassORJSONMixin):
+    """Object representing an Inverter model response from the API."""
+
+    stats: dict[str, dict[str, Any]]
+
+
+@dataclass
+class Inverter(DataClassORJSONMixin):
+    """Object representing an Inverter model response from the API."""
+
+    serial_number: str = field(metadata=field_options(alias="sn"))
+    out_ac_power: int
+    out_ac_energy_total: int
+    grid_turned_off: bool
+    health: str
+
+
+@dataclass
+class Solar(DataClassDictMixin):
     """Object representing a Solar model response from the API."""
 
-    power_production: int | None
-    energy_production_today: int | None
-    energy_production_month: int | None
-    energy_production_total: int | None
-
-    @staticmethod
-    def from_json(data: dict[str, Any]) -> Solar:
-        """Create an Solar object from a JSON response.
-
-        Args:
-        ----
-            data: JSON response from the API.
-
-        Returns:
-        -------
-            An Solar object.
-
-        """
-        data = data["stats"]["kpis"]
-        return Solar(
-            power_production=data.get("current_production"),
-            energy_production_today=data.get("output_today"),
-            energy_production_month=data.get("output_month"),
-            energy_production_total=data.get("output_to_date"),
-        )
+    power_production: int = field(metadata=field_options(alias="pv_now"))
+    energy_production_today: int = field(metadata=field_options(alias="pv_today"))
+    energy_production_month: int = field(metadata=field_options(alias="pv_month"))
+    energy_production_total: int = field(metadata=field_options(alias="pv_to_date"))
 
 
 @dataclass
-class Account:
+class Account(DataClassORJSONMixin):
     """Object representing an Account model response from the API."""
 
-    public_key: str | None
-    name: str | None
-    city: str | None
-    state: str | None
-    country: str | None
-    timezone: str | None
+    public_key: str
+    name: str
+    address: Address
 
-    @staticmethod
-    def from_json(data: dict[str, Any]) -> Account:
-        """Create an Account object from a JSON response.
-
-        Args:
-        ----
-            data: JSON response from the API.
-
-        Returns:
-        -------
-            An Account object.
-
-        """
-        data = data["site"]
-        address = data["address"]
-        return Account(
-            public_key=data.get("public_key"),
-            name=data.get("name"),
-            city=address.get("city"),
-            state=address.get("state"),
-            country=address.get("country"),
-            timezone=data.get("timezone"),
+    timezone: str
+    dt_created: date = field(
+        metadata=field_options(
+            alias="dt_created", deserialize=lambda x: date.fromisoformat(x)
         )
+    )
+    has_consumption_meter: bool
+    has_battery: bool
+
+
+@dataclass
+class Address(DataClassORJSONMixin):
+    """Object representing an Address model response from the API."""
+
+    street: str = field(metadata=field_options(alias="address_line_1"))
+    zip_code: str = field(metadata=field_options(alias="postcode"))
+    city: str
+    country: str

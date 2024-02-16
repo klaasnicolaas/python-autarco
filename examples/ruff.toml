@@ -4,4 +4,5 @@ extend = "../pyproject.toml"
 lint.extend-ignore = [
   "S106", # Allow hardcoded passwords in examples
   "T201", # Allow the use of print() in examples
+  "ERA001", # Allow commented out code in examples
 ]

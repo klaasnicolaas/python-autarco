@@ -2,10 +2,11 @@
 from __future__ import annotations
 
 import asyncio
+import json
 import socket
 from dataclasses import dataclass
 from importlib import metadata
-from typing import Any, Self, cast
+from typing import Any, Self
 
 from aiohttp import BasicAuth, ClientError, ClientResponseError, ClientSession
 from aiohttp.hdrs import METH_GET
@@ -16,7 +17,7 @@ from .exceptions import (
     AutarcoConnectionError,
     AutarcoError,
 )
-from .models import Account, Inverter, Solar
+from .models import Account, EnergyResponse, Inverter, PowerResponse, Solar
 
 VERSION = metadata.version(__package__)
 
@@ -39,7 +40,7 @@ class Autarco:
         *,
         method: str = METH_GET,
         data: dict[str, Any] | None = None,
-    ) -> Any:
+    ) -> str:
         """Handle a request to the Autarco API.
 
         A generic method for sending/handling HTTP requests done against
@@ -109,15 +110,15 @@ class Autarco:
             raise AutarcoConnectionError(msg) from exception
 
         content_type = response.headers.get("Content-Type", "")
+        text = await response.text()
         if "application/json" not in content_type:
-            text = await response.text()
             msg = "Unexpected response from the Autarco API"
             raise AutarcoError(
                 msg,
                 {"Content-Type": content_type, "response": text},
             )
 
-        return cast(dict[str, Any], await response.json())
+        return text
 
     async def get_public_key(self) -> str:
         """Get the public key.
@@ -127,11 +128,12 @@ class Autarco:
             The public key as string.
 
         """
-        data = await self._request("")
-        key: str = data[0]["public_key"]
-        return key
+        response = await self._request("")
+        data = json.loads(response)
+        public_key: str = data[0]["public_key"]
+        return public_key
 
-    async def inverters(self, public_key: str) -> list[Inverter]:
+    async def get_inverters(self, public_key: str) -> dict[str, Inverter]:
         """Get a list of all used inverters.
 
         Args:
@@ -143,15 +145,10 @@ class Autarco:
             A list of Inverter objects.
 
         """
-        results: dict[str, Any] = {}
+        response = await self._request(f"{public_key}/power")
+        return PowerResponse.from_json(response).inverters
 
-        data = await self._request(f"{public_key}/power")
-        for number, item in enumerate(data["inverters"].items(), 1):
-            inverter = Inverter.from_json(item)
-            results[f"Inverter {number}"] = inverter
-        return results
-
-    async def solar(self, public_key: str) -> Solar:
+    async def get_solar(self, public_key: str) -> Solar:
         """Get information about the solar production.
 
         Args:
@@ -163,10 +160,15 @@ class Autarco:
             An Solar object.
 
         """
-        data = await self._request(f"{public_key}/")
-        return Solar.from_json(data)
+        power_response = await self._request(f"{public_key}/power")
+        energy_response = await self._request(f"{public_key}/energy")
 
-    async def account(self, public_key: str) -> Account:
+        power_class = PowerResponse.from_json(power_response)
+        energy_class = EnergyResponse.from_json(energy_response)
+        combined = {**power_class.stats["kpis"], **energy_class.stats["kpis"]}
+        return Solar.from_dict(combined)
+
+    async def get_account(self, public_key: str) -> Account:
         """Get information about your account.
 
         Args:
@@ -178,8 +180,8 @@ class Autarco:
             An Account object.
 
         """
-        data = await self._request(f"{public_key}/")
-        return Account.from_json(data)
+        response = await self._request(f"{public_key}/")
+        return Account.from_json(response)
 
     async def close(self) -> None:
         """Close open client session."""
