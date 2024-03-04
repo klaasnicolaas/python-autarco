@@ -1,4 +1,5 @@
 """Test the Autarco models."""
+
 from datetime import date
 
 from aresponses import ResponsesMockServer

@@ -1,4 +1,5 @@
 """Basic tests for the Autarco API."""
+
 # pylint: disable=protected-access
 import asyncio
 from unittest.mock import patch
@@ -102,11 +103,14 @@ async def test_client_error() -> None:
     """Test request client error from Autarco API."""
     async with ClientSession() as session:
         client = Autarco(email="test@autarco.com", password="energy", session=session)
-        with patch.object(
-            session,
-            "request",
-            side_effect=ClientError,
-        ), pytest.raises(AutarcoConnectionError):
+        with (
+            patch.object(
+                session,
+                "request",
+                side_effect=ClientError,
+            ),
+            pytest.raises(AutarcoConnectionError),
+        ):
             assert await client._request("test")
 
 
