@@ -1,4 +1,5 @@
 """Auth tests for Autarcp."""
+
 # pylint: disable=protected-access
 import pytest
 from aresponses import ResponsesMockServer

@@ -1,4 +1,5 @@
 """Asynchronous Python client for the Autarco API."""
+
 from pathlib import Path
 
 
