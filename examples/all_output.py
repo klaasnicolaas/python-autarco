@@ -2,7 +2,7 @@
 
 import asyncio
 
-from autarco import Account, Autarco, Inverter, Solar
+from autarco import Account, Autarco, Inverter, Location, Solar
 
 
 async def main() -> None:
@@ -11,19 +11,25 @@ async def main() -> None:
         email="test@autarco.com",
         password="password",
     ) as autarco:
-        public_key = await autarco.get_public_key()
+        account: Account = await autarco.get_account()
 
-        inverters: dict[str, Inverter] = await autarco.get_inverters(public_key)
-        solar: Solar = await autarco.get_solar(public_key)
-        account: Account = await autarco.get_account(public_key)
+        inverters: dict[str, Inverter] = await autarco.get_inverters(account.public_key)
+        solar: Solar = await autarco.get_solar(account.public_key)
+        location: Location = await autarco.get_location(account.public_key)
 
-        print(f"Public key: {public_key}")
+        print("--- ACCOUNT ---")
+        print(account)
         print()
+        print(f"Public Key: {account.public_key}")
+        print(f"Name: {account.system_name}")
+        print(f"Retailer: {account.retailer}")
+        print(f"Health: {account.health}")
 
         print("--- INVERTER(S) ---")
         print(inverters)
         print()
         for item in inverters.values():
+            print(f"Serial Number: {item.serial_number}")
             print(item)
         print()
 
@@ -36,14 +42,14 @@ async def main() -> None:
         print(f"Energy Production - Total: {solar.energy_production_total}")
         print()
 
-        print("--- ACCOUNT ---")
-        print(account)
+        print("--- LOCATION ---")
+        print(location)
         print()
-        print(f"Public Key: {account.public_key}")
-        print(f"Name: {account.name}")
-        print(f"Timezone: {account.timezone}")
-        print(f"City: {account.address.city}")
-        print(f"Country: {account.address.country}")
+        print(f"Address: {location.address}")
+        print(f"Timezone: {location.timezone}")
+        print(f"Created At: {location.created_at}")
+        print(f"Consumption Meter: {location.has_consumption_meter}")
+        print(f"Has Battery: {location.has_battery}")
 
 
 if __name__ == "__main__":

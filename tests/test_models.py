@@ -5,7 +5,7 @@ from datetime import date
 from aresponses import ResponsesMockServer
 from syrupy.assertion import SnapshotAssertion
 
-from autarco import Account, Autarco, DateStrategy, Inverter, Solar
+from autarco import Account, Autarco, DateStrategy, Inverter, Location, Solar
 
 from . import load_fixtures
 
@@ -64,6 +64,26 @@ async def test_get_solar(
     assert solar == snapshot
 
 
+async def test_get_location(
+    aresponses: ResponsesMockServer,
+    snapshot: SnapshotAssertion,
+    autarco_client: Autarco,
+) -> None:
+    """Test request from a Autarco API - Location object."""
+    aresponses.add(
+        "my.autarco.com",
+        "/api/site/fake_key/",
+        "GET",
+        aresponses.Response(
+            text=load_fixtures("location.json"),
+            status=200,
+            headers={"Content-Type": "application/json; charset=utf-8"},
+        ),
+    )
+    location: Location = await autarco_client.get_location(public_key="fake_key")
+    assert location == snapshot
+
+
 async def test_get_account(
     aresponses: ResponsesMockServer,
     snapshot: SnapshotAssertion,
@@ -72,7 +92,7 @@ async def test_get_account(
     """Test request from a Autarco API - Account object."""
     aresponses.add(
         "my.autarco.com",
-        "/api/site/fake_key/",
+        "/api/site/",
         "GET",
         aresponses.Response(
             text=load_fixtures("account.json"),
@@ -80,29 +100,9 @@ async def test_get_account(
             headers={"Content-Type": "application/json; charset=utf-8"},
         ),
     )
-    account: Account = await autarco_client.get_account(public_key="fake_key")
+    account: Account = await autarco_client.get_account()
     assert account == snapshot
-
-
-async def test_get_public_key(
-    aresponses: ResponsesMockServer,
-    snapshot: SnapshotAssertion,
-    autarco_client: Autarco,
-) -> None:
-    """Test request from a Autarco API - get_public_key."""
-    aresponses.add(
-        "my.autarco.com",
-        "/api/site/",
-        "GET",
-        aresponses.Response(
-            text=load_fixtures("public_key.json"),
-            status=200,
-            headers={"Content-Type": "application/json; charset=utf-8"},
-        ),
-    )
-    public_key = await autarco_client.get_public_key()
-    assert public_key == snapshot
-    assert public_key == "sd6fv516"
+    assert account.public_key == "blabla"
 
 
 def test_serialize_date() -> None:

@@ -18,7 +18,7 @@
 [![Maintainability][maintainability-shield]][maintainability-url]
 [![Code Coverage][codecov-shield]][codecov-url]
 
-Asynchronous Python client for the Autarco Inverters.
+Asynchronous Python client for the Autarco Inverters (External API).
 
 ## About
 
@@ -32,8 +32,7 @@ The data on the platform is updated every 5 minutes.
 You can find this in the url after logging in,
 example: `https://my.autarco.com/site/{public_key}`
 
-Or by using the `get_public_key` method, that will
-return your key.
+Or by using the `get_account` function, and use the `public_key` attribute.
 
 ## Installation
 
@@ -55,11 +54,11 @@ async def main():
         email="test@autarco.com",
         password="password",
     ) as client:
-        public_key = await client.get_public_key()
+        account = await client.get_account()
 
-        inverters = await client.all_inverters(public_key)
-        solar = await client.solar(public_key)
-        account = await client.account(public_key)
+        inverters = await client.get_inverters(account.public_key)
+        solar = await client.get_solar(account.public_key)
+        location = await client.get_location(account.public_key)
         print(inverters)
         print(solar)
         print(account)
@@ -69,15 +68,25 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
+More examples can be found in the [examples folder](./examples/).
+
 ## Data
 
 You can read the following data with this package:
 
+### Account
+
+- Public Key
+- System Name
+- Retailer Name
+- Health Status
+
 ### Inverter(s)
 
 - Serial Number
-- Current Power Production (W)
-- Total Energy Production (kWh)
+- Out AC - Power (W)
+- Out AC - Energy Total (kWh)
+- Grid Turned Off (bool)
 - Health Status
 
 ### Solar
@@ -87,16 +96,16 @@ You can read the following data with this package:
 - Energy Production - Month (kWh)
 - Energy Production - Total (kWh)
 
-### Account
+### Location
 
-- Public Key (str)
-- Name (str)
+- Public Key
+- Name
 - Address (dict)
-  - Street (str)
-  - Zip Code (str)
-  - City (str)
-  - Country (str)
-- Timezone (str)
+  - Street
+  - Zip Code
+  - City
+  - Country
+- Timezone
 - Created At (date)
 - Has consumption meter (bool)
 - Has battery (bool)

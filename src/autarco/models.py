@@ -26,17 +26,24 @@ class DateStrategy(SerializationStrategy):
 
 @dataclass
 class PowerResponse(DataClassORJSONMixin):
-    """Object representing an Inverter model response from the API."""
+    """Object representing an Power Response model from the API."""
 
     inverters: dict[str, Inverter]
-    stats: dict[str, dict[str, int]]
+    stats: dict[str, dict[str, Any]]
 
 
 @dataclass
 class EnergyResponse(DataClassORJSONMixin):
-    """Object representing an Inverter model response from the API."""
+    """Object representing an Energy Response model response from the API."""
 
     stats: dict[str, dict[str, Any]]
+
+
+@dataclass
+class AccountResponse(DataClassORJSONMixin):
+    """Object representing an Account model response from the API."""
+
+    data: list[Account]
 
 
 @dataclass
@@ -62,7 +69,17 @@ class Solar(DataClassDictMixin):
 
 @dataclass
 class Account(DataClassORJSONMixin):
-    """Object representing an Account model response from the API."""
+    """Object representing a Account model response from the API."""
+
+    public_key: str
+    system_name: str = field(metadata=field_options(alias="name"))
+    retailer: str = field(metadata=field_options(alias="name_retailer"))
+    health: str
+
+
+@dataclass
+class Location(DataClassORJSONMixin):
+    """Object representing an Location model response from the API."""
 
     # pylint: disable-next=too-few-public-methods
     class Config(BaseConfig):

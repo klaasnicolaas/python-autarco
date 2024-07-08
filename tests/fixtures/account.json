@@ -1,41 +1,32 @@
 {
-  "public_key": "sd6fv516",
-  "name": "My Autarco solar installation",
-  "address": {
-    "address_line_1": "Streetname 00",
-    "postcode": "1111 AA",
-    "city": "Valkenswaard",
-    "country": "Nederland"
-  },
-  "timezone": "Europe/Amsterdam",
-  "dt_created": "2023-05-15",
-  "dt_updated": "2023-05-15",
-  "has_consumption_meter": false,
-  "has_battery": false,
-  "systems": [
-    {
-      "retailer": "Kiggen",
-      "nominal_power": 4800,
-      "dt_created": "2023-05-15",
-      "dt_updated": "2023-05-15",
-      "inverters": {
-        "1802040231290027": {
-          "serial_number": "1802040231290027",
-          "variant_code": "S2.MX4600-MIII.1",
-          "dt_installed": "2023-05-15",
-          "dt_uninstalled": null
-        }
-      },
-      "layout": [
-        {
-          "qty": 12,
-          "type": "S1.MHJ400B",
-          "pitch": 35,
-          "azimuth": -42
-        }
-      ],
-      "guarantee": null,
-      "dt_installed": "2023-05-15"
-    }
-  ]
+  "current_page": 1,
+  "data": [
+      {
+          "mock": 0,
+          "name_end_user": "Mijn Autarco",
+          "name_retailer": "Klaas Schoute",
+          "public_key": "blabla",
+          "dt_created": "2017-03-14 13:02:44",
+          "dt_updated": "2020-11-16 08:07:52",
+          "address_line_1": "Zernikedreef 00",
+          "address_line_2": null,
+          "address_line_3": null,
+          "city": "Leiden",
+          "postcode": "2333CK",
+          "country_code": "NL",
+          "country_name": "",
+          "site_id": 1000,
+          "address_id": 1000,
+          "nominal_power": 1000,
+          "health": "OK",
+          "name": "Mijn Autarco"
+      }
+  ],
+  "first_page_url": "https://my.autarco.com/api/site?page=1",
+  "from": 1,
+  "next_page_url": null,
+  "path": "https://my.autarco.com/api/site",
+  "per_page": 30,
+  "prev_page_url": null,
+  "to": 1
 }

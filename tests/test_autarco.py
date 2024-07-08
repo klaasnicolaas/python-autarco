@@ -14,8 +14,6 @@ from autarco.exceptions import (
     AutarcoError,
 )
 
-from . import load_fixtures
-
 
 async def test_json_request(
     aresponses: ResponsesMockServer,
@@ -29,7 +27,6 @@ async def test_json_request(
         aresponses.Response(
             status=200,
             headers={"Content-Type": "application/json"},
-            text=load_fixtures("account.json"),
         ),
     )
     response = await autarco_client._request("test")
@@ -38,7 +35,7 @@ async def test_json_request(
 
 
 async def test_internal_session(aresponses: ResponsesMockServer) -> None:
-    """Test JSON response is handled correctly."""
+    """Test internal session is created and closed."""
     aresponses.add(
         "my.autarco.com",
         "/api/site/test",
@@ -46,7 +43,6 @@ async def test_internal_session(aresponses: ResponsesMockServer) -> None:
         aresponses.Response(
             status=200,
             headers={"Content-Type": "application/json"},
-            text=load_fixtures("account.json"),
         ),
     )
     async with Autarco(email="test@autarco.com", password="energy") as client:

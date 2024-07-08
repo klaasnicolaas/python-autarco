@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import asyncio
-import json
 import socket
 from dataclasses import dataclass
 from importlib import metadata
@@ -18,7 +17,15 @@ from .exceptions import (
     AutarcoConnectionError,
     AutarcoError,
 )
-from .models import Account, EnergyResponse, Inverter, PowerResponse, Solar
+from .models import (
+    Account,
+    AccountResponse,
+    EnergyResponse,
+    Inverter,
+    Location,
+    PowerResponse,
+    Solar,
+)
 
 VERSION = metadata.version(__package__)
 
@@ -121,18 +128,16 @@ class Autarco:
 
         return text
 
-    async def get_public_key(self) -> str:
-        """Get the public key.
+    async def get_account(self) -> Account:
+        """Get information about the account.
 
         Returns
         -------
-            The public key as string.
+            An Account object. Note: it returns the first account found.
 
         """
         response = await self._request("")
-        data = json.loads(response)
-        public_key: str = data[0]["public_key"]
-        return public_key
+        return AccountResponse.from_json(response).data[0]
 
     async def get_inverters(self, public_key: str) -> dict[str, Inverter]:
         """Get a list of all used inverters.
@@ -169,8 +174,8 @@ class Autarco:
         combined = {**power_class.stats["kpis"], **energy_class.stats["kpis"]}
         return Solar.from_dict(combined)
 
-    async def get_account(self, public_key: str) -> Account:
-        """Get information about your account.
+    async def get_location(self, public_key: str) -> Location:
+        """Get information about your system location.
 
         Args:
         ----
@@ -178,11 +183,11 @@ class Autarco:
 
         Returns:
         -------
-            An Account object.
+            An Location object.
 
         """
         response = await self._request(f"{public_key}/")
-        return Account.from_json(response)
+        return Location.from_json(response)
 
     async def close(self) -> None:
         """Close open client session."""

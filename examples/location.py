@@ -6,13 +6,14 @@ from autarco import Account, Autarco
 
 
 async def main() -> None:
-    """Show example on getting Autarco - account data."""
+    """Show example on getting Autarco - location data."""
     async with Autarco(
         email="test@autarco.com",
         password="password",
     ) as client:
         account: Account = await client.get_account()
-        print(account)
+        location = await client.get_location(account.public_key)
+        print(location)
 
 
 if __name__ == "__main__":
