@@ -222,7 +222,7 @@ SOFTWARE.
 [maintainability-shield]: https://api.codeclimate.com/v1/badges/d38cdaa8625b6657d40b/maintainability
 [maintainability-url]: https://codeclimate.com/github/klaasnicolaas/python-autarco/maintainability
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2024.svg
-[project-stage-shield]: https://img.shields.io/badge/project%20stage-experimental-yellow.svg
+[project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
 [pypi]: https://pypi.org/project/autarco/
 [python-versions-shield]: https://img.shields.io/pypi/pyversions/autarco
 [releases-shield]: https://img.shields.io/github/release/klaasnicolaas/python-autarco.svg
