@@ -2,7 +2,7 @@
 
 import asyncio
 
-from autarco import Autarco
+from autarco import Account, Autarco
 
 
 async def main() -> None:
@@ -11,8 +11,8 @@ async def main() -> None:
         email="test@autarco.com",
         password="password",
     ) as client:
-        public_key = await client.get_public_key()
-        solar = await client.get_solar(public_key)
+        account: Account = await client.get_account()
+        solar = await client.get_solar(account.public_key)
         print(solar)
 
 
