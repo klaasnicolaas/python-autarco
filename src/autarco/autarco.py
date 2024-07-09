@@ -18,12 +18,12 @@ from .exceptions import (
     AutarcoError,
 )
 from .models import (
-    Account,
     AccountResponse,
+    AccountSite,
     EnergyResponse,
     Inverter,
-    Location,
     PowerResponse,
+    Site,
     Solar,
 )
 
@@ -37,7 +37,7 @@ class Autarco:
     email: str
     password: str
 
-    request_timeout: float = 10.0
+    request_timeout: float = 15.0
     session: ClientSession | None = None
 
     _close_session: bool = False
@@ -128,23 +128,23 @@ class Autarco:
 
         return text
 
-    async def get_account(self) -> Account:
-        """Get information about the account.
+    async def get_account(self) -> list[AccountSite]:
+        """Get account with list of sites.
 
         Returns
         -------
-            An Account object. Note: it returns the first account found.
+            A list of Site objects.
 
         """
         response = await self._request("")
-        return AccountResponse.from_json(response).data[0]
+        return AccountResponse.from_json(response).sites
 
     async def get_inverters(self, public_key: str) -> dict[str, Inverter]:
         """Get a list of all used inverters.
 
         Args:
         ----
-            public_key: The public key from your account.
+            public_key: The public key from the specific site.
 
         Returns:
         -------
@@ -155,11 +155,11 @@ class Autarco:
         return PowerResponse.from_json(response).inverters
 
     async def get_solar(self, public_key: str) -> Solar:
-        """Get information about the solar production.
+        """Get information about the solar production from a site.
 
         Args:
         ----
-            public_key: The public key from your account.
+            public_key: The public key from your site.
 
         Returns:
         -------
@@ -174,20 +174,20 @@ class Autarco:
         combined = {**power_class.stats["kpis"], **energy_class.stats["kpis"]}
         return Solar.from_dict(combined)
 
-    async def get_location(self, public_key: str) -> Location:
-        """Get information about your system location.
+    async def get_site(self, public_key: str) -> Site:
+        """Get information about your system site.
 
         Args:
         ----
-            public_key: The public key from your account.
+            public_key: The public key from your site.
 
         Returns:
         -------
-            An Location object.
+            An Site object.
 
         """
         response = await self._request(f"{public_key}/")
-        return Location.from_json(response)
+        return Site.from_json(response)
 
     async def close(self) -> None:
         """Close open client session."""

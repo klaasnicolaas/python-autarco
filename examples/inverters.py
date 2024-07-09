@@ -2,7 +2,7 @@
 
 import asyncio
 
-from autarco import Account, Autarco
+from autarco import AccountSite, Autarco
 
 
 async def main() -> None:
@@ -11,8 +11,8 @@ async def main() -> None:
         email="test@autarco.com",
         password="password",
     ) as client:
-        account: Account = await client.get_account()
-        inverters = await client.get_inverters(account.public_key)
+        account_sites: list[AccountSite] = await client.get_account()
+        inverters = await client.get_inverters(account_sites[0].public_key)
         print(inverters)
 
 

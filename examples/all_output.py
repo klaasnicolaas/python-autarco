@@ -2,7 +2,7 @@
 
 import asyncio
 
-from autarco import Account, Autarco, Inverter, Location, Solar
+from autarco import AccountSite, Autarco, Inverter, Site, Solar
 
 
 async def main() -> None:
@@ -11,26 +11,34 @@ async def main() -> None:
         email="test@autarco.com",
         password="password",
     ) as autarco:
-        account: Account = await autarco.get_account()
+        account_sites: list[AccountSite] = await autarco.get_account()
 
-        inverters: dict[str, Inverter] = await autarco.get_inverters(account.public_key)
-        solar: Solar = await autarco.get_solar(account.public_key)
-        location: Location = await autarco.get_location(account.public_key)
+        inverters: dict[str, Inverter] = await autarco.get_inverters(
+            account_sites[0].public_key
+        )
+        solar: Solar = await autarco.get_solar(account_sites[0].public_key)
+        site: Site = await autarco.get_site(account_sites[0].public_key)
 
         print("--- ACCOUNT ---")
-        print(account)
+        print(account_sites)
         print()
-        print(f"Public Key: {account.public_key}")
-        print(f"Name: {account.system_name}")
-        print(f"Retailer: {account.retailer}")
-        print(f"Health: {account.health}")
+        for item in account_sites:
+            print(f"Site ID: {item.site_id}")
+            print(f"Public Key: {item.public_key}")
+            print(f"Name: {item.system_name}")
+            print(f"Retailer: {item.retailer}")
+            print(f"Health: {item.health}")
+        print()
 
         print("--- INVERTER(S) ---")
         print(inverters)
         print()
-        for item in inverters.values():
-            print(f"Serial Number: {item.serial_number}")
-            print(item)
+        for inverter in inverters.values():
+            print(f"Serial Number: {inverter.serial_number}")
+            print(f"Out AC Power: {inverter.out_ac_power}")
+            print(f"Out AC Energy Total: {inverter.out_ac_energy_total}")
+            print(f"Grid Turned Off: {inverter.grid_turned_off}")
+            print(f"Health: {inverter.health}")
         print()
 
         print("--- SOLAR ---")
@@ -42,14 +50,14 @@ async def main() -> None:
         print(f"Energy Production - Total: {solar.energy_production_total}")
         print()
 
-        print("--- LOCATION ---")
-        print(location)
+        print("--- SITE ---")
+        print(site)
         print()
-        print(f"Address: {location.address}")
-        print(f"Timezone: {location.timezone}")
-        print(f"Created At: {location.created_at}")
-        print(f"Consumption Meter: {location.has_consumption_meter}")
-        print(f"Has Battery: {location.has_battery}")
+        print(f"Address: {site.address}")
+        print(f"Timezone: {site.timezone}")
+        print(f"Created At: {site.created_at}")
+        print(f"Consumption Meter: {site.has_consumption_meter}")
+        print(f"Has Battery: {site.has_battery}")
 
 
 if __name__ == "__main__":

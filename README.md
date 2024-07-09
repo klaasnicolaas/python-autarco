@@ -54,11 +54,11 @@ async def main():
         email="test@autarco.com",
         password="password",
     ) as client:
-        account = await client.get_account()
+        account_sites = await client.get_account()
 
-        inverters = await client.get_inverters(account.public_key)
-        solar = await client.get_solar(account.public_key)
-        location = await client.get_location(account.public_key)
+        inverters = await client.get_inverters(account_sites[0].public_key)
+        solar = await client.get_solar(account_sites[0].public_key)
+        site = await client.get_site(account_sites[0].public_key)
         print(inverters)
         print(solar)
         print(account)
@@ -76,6 +76,9 @@ You can read the following data with this package:
 
 ### Account
 
+With all the sites you have access to.
+
+- Site ID
 - Public Key
 - System Name
 - Retailer Name
@@ -96,7 +99,7 @@ You can read the following data with this package:
 - Energy Production - Month (kWh)
 - Energy Production - Total (kWh)
 
-### Location
+### Site
 
 - Public Key
 - Name

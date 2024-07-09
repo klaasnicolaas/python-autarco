@@ -6,16 +6,16 @@ from .exceptions import (
     AutarcoConnectionError,
     AutarcoError,
 )
-from .models import Account, DateStrategy, Inverter, Location, Solar
+from .models import AccountSite, DateStrategy, Inverter, Site, Solar
 
 __all__ = [
-    "Account",
+    "AccountSite",
     "Autarco",
     "AutarcoAuthenticationError",
     "AutarcoConnectionError",
     "AutarcoError",
     "DateStrategy",
     "Inverter",
-    "Location",
+    "Site",
     "Solar",
 ]
