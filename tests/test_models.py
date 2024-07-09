@@ -5,7 +5,7 @@ from datetime import date
 from aresponses import ResponsesMockServer
 from syrupy.assertion import SnapshotAssertion
 
-from autarco import Account, Autarco, DateStrategy, Inverter, Location, Solar
+from autarco import AccountSite, Autarco, DateStrategy, Inverter, Site, Solar
 
 from . import load_fixtures
 
@@ -64,24 +64,24 @@ async def test_get_solar(
     assert solar == snapshot
 
 
-async def test_get_location(
+async def test_get_site(
     aresponses: ResponsesMockServer,
     snapshot: SnapshotAssertion,
     autarco_client: Autarco,
 ) -> None:
-    """Test request from a Autarco API - Location object."""
+    """Test request from a Autarco API - Site object."""
     aresponses.add(
         "my.autarco.com",
         "/api/site/fake_key/",
         "GET",
         aresponses.Response(
-            text=load_fixtures("location.json"),
+            text=load_fixtures("site.json"),
             status=200,
             headers={"Content-Type": "application/json; charset=utf-8"},
         ),
     )
-    location: Location = await autarco_client.get_location(public_key="fake_key")
-    assert location == snapshot
+    site: Site = await autarco_client.get_site(public_key="fake_key")
+    assert site == snapshot
 
 
 async def test_get_account(
@@ -100,9 +100,9 @@ async def test_get_account(
             headers={"Content-Type": "application/json; charset=utf-8"},
         ),
     )
-    account: Account = await autarco_client.get_account()
-    assert account == snapshot
-    assert account.public_key == "blabla"
+    account_sites: list[AccountSite] = await autarco_client.get_account()
+    assert account_sites == snapshot
+    assert account_sites[0].public_key == "blabla"
 
 
 def test_serialize_date() -> None:

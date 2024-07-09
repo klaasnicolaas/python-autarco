@@ -41,9 +41,20 @@ class EnergyResponse(DataClassORJSONMixin):
 
 @dataclass
 class AccountResponse(DataClassORJSONMixin):
-    """Object representing an Account model response from the API."""
+    """Object representing an Account Response model from the API."""
 
-    data: list[Account]
+    sites: list[AccountSite] = field(metadata=field_options(alias="data"))
+
+
+@dataclass
+class AccountSite(DataClassORJSONMixin):
+    """Object representing an Account Site model response from the API."""
+
+    site_id: int
+    public_key: str
+    system_name: str = field(metadata=field_options(alias="name"))
+    retailer: str = field(metadata=field_options(alias="name_retailer"))
+    health: str
 
 
 @dataclass
@@ -68,18 +79,8 @@ class Solar(DataClassDictMixin):
 
 
 @dataclass
-class Account(DataClassORJSONMixin):
-    """Object representing a Account model response from the API."""
-
-    public_key: str
-    system_name: str = field(metadata=field_options(alias="name"))
-    retailer: str = field(metadata=field_options(alias="name_retailer"))
-    health: str
-
-
-@dataclass
-class Location(DataClassORJSONMixin):
-    """Object representing an Location model response from the API."""
+class Site(DataClassORJSONMixin):
+    """Object representing an Site model response from the API."""
 
     # pylint: disable-next=too-few-public-methods
     class Config(BaseConfig):
