@@ -61,7 +61,7 @@ async def main():
         site = await client.get_site(account_sites[0].public_key)
         print(inverters)
         print(solar)
-        print(account)
+        print(site)
 
 
 if __name__ == "__main__":
