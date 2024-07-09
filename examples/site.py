@@ -2,18 +2,18 @@
 
 import asyncio
 
-from autarco import Account, Autarco
+from autarco import AccountSite, Autarco
 
 
 async def main() -> None:
-    """Show example on getting Autarco - location data."""
+    """Show example on getting Autarco - site data."""
     async with Autarco(
         email="test@autarco.com",
         password="password",
     ) as client:
-        account: Account = await client.get_account()
-        location = await client.get_location(account.public_key)
-        print(location)
+        account_sites: list[AccountSite] = await client.get_account()
+        site = await client.get_site(account_sites[0].public_key)
+        print(site)
 
 
 if __name__ == "__main__":
