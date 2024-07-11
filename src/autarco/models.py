@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import date
+from datetime import date, datetime
 from typing import Any
 
 from mashumaro import DataClassDictMixin, field_options
@@ -29,14 +29,14 @@ class PowerResponse(DataClassORJSONMixin):
     """Object representing an Power Response model from the API."""
 
     inverters: dict[str, Inverter]
-    stats: dict[str, dict[str, Any]]
+    stats: Stats
 
 
 @dataclass
 class EnergyResponse(DataClassORJSONMixin):
     """Object representing an Energy Response model response from the API."""
 
-    stats: dict[str, dict[str, Any]]
+    stats: Stats
 
 
 @dataclass
@@ -76,6 +76,50 @@ class Solar(DataClassDictMixin):
     energy_production_today: int = field(metadata=field_options(alias="pv_today"))
     energy_production_month: int = field(metadata=field_options(alias="pv_month"))
     energy_production_total: int = field(metadata=field_options(alias="pv_to_date"))
+
+
+@dataclass
+class Graphs(DataClassORJSONMixin):
+    """Object representing Graphs model from the API."""
+
+    pv_power: dict[str, dict[datetime, int | None]] | None = None
+    pv_energy: dict[str, dict[date, int | None]] | None = None
+
+
+@dataclass
+class Stats(DataClassORJSONMixin):
+    """Object representing the Stats model from the API."""
+
+    graphs: Graphs
+    kpis: dict[str, Any]
+
+    @property
+    def generate_power_stats_inverter(self) -> dict[str, list[dict[str, Any]]] | None:
+        """Generate power statistics by inverter."""
+        if self.graphs.pv_power:
+            power_stats_by_inverter = {}
+            for inverter_id, power_data in self.graphs.pv_power.items():
+                stats_list = [
+                    {"timestamp": timestamp, "power": power}
+                    for timestamp, power in power_data.items()
+                ]
+                power_stats_by_inverter[inverter_id] = stats_list
+            return power_stats_by_inverter
+        return None
+
+    @property
+    def generate_energy_stats_inverter(self) -> dict[str, list[dict[str, Any]]] | None:
+        """Generate energy statistics by inverter."""
+        if self.graphs.pv_energy:
+            energy_stats_by_inverter = {}
+            for inverter_id, energy_data in self.graphs.pv_energy.items():
+                stats_list = [
+                    {"timestamp": date, "energy": energy}
+                    for date, energy in energy_data.items()
+                ]
+                energy_stats_by_inverter[inverter_id] = stats_list
+            return energy_stats_by_inverter
+        return None
 
 
 @dataclass

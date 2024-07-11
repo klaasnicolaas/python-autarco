@@ -5,7 +5,7 @@ from datetime import date
 from aresponses import ResponsesMockServer
 from syrupy.assertion import SnapshotAssertion
 
-from autarco import AccountSite, Autarco, DateStrategy, Inverter, Site, Solar
+from autarco import AccountSite, Autarco, DateStrategy, Inverter, Site, Solar, Stats
 
 from . import load_fixtures
 
@@ -103,6 +103,56 @@ async def test_get_account(
     account_sites: list[AccountSite] = await autarco_client.get_account()
     assert account_sites == snapshot
     assert account_sites[0].public_key == "blabla"
+
+
+async def test_power_statistics(
+    aresponses: ResponsesMockServer,
+    snapshot: SnapshotAssertion,
+    autarco_client: Autarco,
+) -> None:
+    """Test request from a Autarco API - Power statistics data."""
+    aresponses.add(
+        "my.autarco.com",
+        "/api/site/fake_key/power",
+        "GET",
+        aresponses.Response(
+            text=load_fixtures("power.json"),
+            status=200,
+            headers={"Content-Type": "application/json; charset=utf-8"},
+        ),
+    )
+    power_stats: Stats = await autarco_client.get_power_statistics(
+        public_key="fake_key", query_range="day"
+    )
+    generator = power_stats.generate_power_stats_inverter
+    assert power_stats == snapshot
+    assert generator == snapshot
+    assert power_stats.generate_energy_stats_inverter is None
+
+
+async def test_energy_statistics(
+    aresponses: ResponsesMockServer,
+    snapshot: SnapshotAssertion,
+    autarco_client: Autarco,
+) -> None:
+    """Test request from a Autarco API - Energy statistics data."""
+    aresponses.add(
+        "my.autarco.com",
+        "/api/site/fake_key/energy",
+        "GET",
+        aresponses.Response(
+            text=load_fixtures("energy.json"),
+            status=200,
+            headers={"Content-Type": "application/json; charset=utf-8"},
+        ),
+    )
+    energy_stats: Stats = await autarco_client.get_energy_statistics(
+        public_key="fake_key", query_range="month"
+    )
+    generator = energy_stats.generate_energy_stats_inverter
+    assert energy_stats == snapshot
+    assert generator == snapshot
+    assert energy_stats.generate_power_stats_inverter is None
 
 
 def test_serialize_date() -> None:

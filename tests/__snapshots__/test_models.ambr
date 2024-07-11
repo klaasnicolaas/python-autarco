@@ -1,4 +1,129 @@
 # serializer version: 1
+# name: test_energy_statistics
+  Stats(graphs=Graphs(pv_power=None, pv_energy={'1802040231290027': {datetime.date(2024, 2, 1): 0, datetime.date(2024, 2, 2): 0, datetime.date(2024, 2, 3): 0, datetime.date(2024, 2, 4): 0, datetime.date(2024, 2, 5): 0, datetime.date(2024, 2, 6): 0, datetime.date(2024, 2, 7): 0, datetime.date(2024, 2, 8): 0, datetime.date(2024, 2, 9): 0, datetime.date(2024, 2, 10): 0, datetime.date(2024, 2, 11): 0, datetime.date(2024, 2, 12): 0, datetime.date(2024, 2, 13): 0, datetime.date(2024, 2, 14): 0, datetime.date(2024, 2, 15): 0, datetime.date(2024, 2, 16): 0, datetime.date(2024, 2, 17): 0, datetime.date(2024, 2, 18): 0, datetime.date(2024, 2, 19): 0, datetime.date(2024, 2, 20): 0, datetime.date(2024, 2, 21): 0, datetime.date(2024, 2, 22): 0, datetime.date(2024, 2, 23): 0, datetime.date(2024, 2, 24): 0, datetime.date(2024, 2, 25): 0, datetime.date(2024, 2, 26): 0, datetime.date(2024, 2, 27): 0, datetime.date(2024, 2, 28): 0, datetime.date(2024, 2, 29): 0}}), kpis={'pv_today': 4, 'pv_month': 58, 'pv_to_date': 10379})
+# ---
+# name: test_energy_statistics.1
+  dict({
+    '1802040231290027': list([
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 1),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 2),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 3),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 4),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 5),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 6),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 7),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 8),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 9),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 10),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 11),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 12),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 13),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 14),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 15),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 16),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 17),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 18),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 19),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 20),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 21),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 22),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 23),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 24),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 25),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 26),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 27),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 28),
+      }),
+      dict({
+        'energy': 0,
+        'timestamp': datetime.date(2024, 2, 29),
+      }),
+    ]),
+  })
+# ---
 # name: test_get_account
   list([
     AccountSite(site_id=1000, public_key='blabla', system_name='Mijn Autarco', retailer='Klaas Schoute', health='OK'),
@@ -15,4 +140,217 @@
 # ---
 # name: test_get_solar
   Solar(power_production=200, energy_production_today=4, energy_production_month=58, energy_production_total=10379)
+# ---
+# name: test_power_statistics
+  Stats(graphs=Graphs(pv_power={'380016531035': {datetime.datetime(2024, 7, 11, 0, 0): 0, datetime.datetime(2024, 7, 11, 0, 15): 0, datetime.datetime(2024, 7, 11, 0, 30): 0, datetime.datetime(2024, 7, 11, 0, 45): 0, datetime.datetime(2024, 7, 11, 1, 0): 0, datetime.datetime(2024, 7, 11, 1, 15): 0, datetime.datetime(2024, 7, 11, 1, 30): 0, datetime.datetime(2024, 7, 11, 1, 45): 0, datetime.datetime(2024, 7, 11, 2, 0): 0, datetime.datetime(2024, 7, 11, 2, 15): 0, datetime.datetime(2024, 7, 11, 2, 30): 0, datetime.datetime(2024, 7, 11, 2, 45): 0, datetime.datetime(2024, 7, 11, 3, 0): 0, datetime.datetime(2024, 7, 11, 3, 15): 0, datetime.datetime(2024, 7, 11, 3, 30): 0, datetime.datetime(2024, 7, 11, 3, 45): 0, datetime.datetime(2024, 7, 11, 4, 0): 0, datetime.datetime(2024, 7, 11, 4, 15): 0, datetime.datetime(2024, 7, 11, 4, 30): 0, datetime.datetime(2024, 7, 11, 4, 45): 0, datetime.datetime(2024, 7, 11, 5, 0): 0, datetime.datetime(2024, 7, 11, 5, 15): 0, datetime.datetime(2024, 7, 11, 5, 30): 0, datetime.datetime(2024, 7, 11, 5, 45): 0, datetime.datetime(2024, 7, 11, 6, 0): 0, datetime.datetime(2024, 7, 11, 6, 15): 0, datetime.datetime(2024, 7, 11, 6, 30): 0, datetime.datetime(2024, 7, 11, 6, 45): 54, datetime.datetime(2024, 7, 11, 7, 0): 92, datetime.datetime(2024, 7, 11, 7, 15): 93, datetime.datetime(2024, 7, 11, 7, 30): 140, datetime.datetime(2024, 7, 11, 7, 45): 132, datetime.datetime(2024, 7, 11, 8, 0): 147, datetime.datetime(2024, 7, 11, 8, 15): 279, datetime.datetime(2024, 7, 11, 8, 30): 459, datetime.datetime(2024, 7, 11, 8, 45): 403, datetime.datetime(2024, 7, 11, 9, 0): 802, datetime.datetime(2024, 7, 11, 9, 15): 763, datetime.datetime(2024, 7, 11, 9, 30): 972, datetime.datetime(2024, 7, 11, 9, 45): 1203, datetime.datetime(2024, 7, 11, 10, 0): 1500, datetime.datetime(2024, 7, 11, 10, 15): 614, datetime.datetime(2024, 7, 11, 10, 30): 1050, datetime.datetime(2024, 7, 11, 10, 45): 1133, datetime.datetime(2024, 7, 11, 11, 0): 2298, datetime.datetime(2024, 7, 11, 11, 15): 2480, datetime.datetime(2024, 7, 11, 11, 30): 2275, datetime.datetime(2024, 7, 11, 11, 45): 1225, datetime.datetime(2024, 7, 11, 12, 0): 2403, datetime.datetime(2024, 7, 11, 12, 15): 2508, datetime.datetime(2024, 7, 11, 12, 30): 2354}}, pv_energy=None), kpis={'pv_now': 200})
+# ---
+# name: test_power_statistics.1
+  dict({
+    '380016531035': list([
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 0, 0),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 0, 15),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 0, 30),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 0, 45),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 1, 0),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 1, 15),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 1, 30),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 1, 45),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 2, 0),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 2, 15),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 2, 30),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 2, 45),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 3, 0),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 3, 15),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 3, 30),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 3, 45),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 4, 0),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 4, 15),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 4, 30),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 4, 45),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 5, 0),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 5, 15),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 5, 30),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 5, 45),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 6, 0),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 6, 15),
+      }),
+      dict({
+        'power': 0,
+        'timestamp': datetime.datetime(2024, 7, 11, 6, 30),
+      }),
+      dict({
+        'power': 54,
+        'timestamp': datetime.datetime(2024, 7, 11, 6, 45),
+      }),
+      dict({
+        'power': 92,
+        'timestamp': datetime.datetime(2024, 7, 11, 7, 0),
+      }),
+      dict({
+        'power': 93,
+        'timestamp': datetime.datetime(2024, 7, 11, 7, 15),
+      }),
+      dict({
+        'power': 140,
+        'timestamp': datetime.datetime(2024, 7, 11, 7, 30),
+      }),
+      dict({
+        'power': 132,
+        'timestamp': datetime.datetime(2024, 7, 11, 7, 45),
+      }),
+      dict({
+        'power': 147,
+        'timestamp': datetime.datetime(2024, 7, 11, 8, 0),
+      }),
+      dict({
+        'power': 279,
+        'timestamp': datetime.datetime(2024, 7, 11, 8, 15),
+      }),
+      dict({
+        'power': 459,
+        'timestamp': datetime.datetime(2024, 7, 11, 8, 30),
+      }),
+      dict({
+        'power': 403,
+        'timestamp': datetime.datetime(2024, 7, 11, 8, 45),
+      }),
+      dict({
+        'power': 802,
+        'timestamp': datetime.datetime(2024, 7, 11, 9, 0),
+      }),
+      dict({
+        'power': 763,
+        'timestamp': datetime.datetime(2024, 7, 11, 9, 15),
+      }),
+      dict({
+        'power': 972,
+        'timestamp': datetime.datetime(2024, 7, 11, 9, 30),
+      }),
+      dict({
+        'power': 1203,
+        'timestamp': datetime.datetime(2024, 7, 11, 9, 45),
+      }),
+      dict({
+        'power': 1500,
+        'timestamp': datetime.datetime(2024, 7, 11, 10, 0),
+      }),
+      dict({
+        'power': 614,
+        'timestamp': datetime.datetime(2024, 7, 11, 10, 15),
+      }),
+      dict({
+        'power': 1050,
+        'timestamp': datetime.datetime(2024, 7, 11, 10, 30),
+      }),
+      dict({
+        'power': 1133,
+        'timestamp': datetime.datetime(2024, 7, 11, 10, 45),
+      }),
+      dict({
+        'power': 2298,
+        'timestamp': datetime.datetime(2024, 7, 11, 11, 0),
+      }),
+      dict({
+        'power': 2480,
+        'timestamp': datetime.datetime(2024, 7, 11, 11, 15),
+      }),
+      dict({
+        'power': 2275,
+        'timestamp': datetime.datetime(2024, 7, 11, 11, 30),
+      }),
+      dict({
+        'power': 1225,
+        'timestamp': datetime.datetime(2024, 7, 11, 11, 45),
+      }),
+      dict({
+        'power': 2403,
+        'timestamp': datetime.datetime(2024, 7, 11, 12, 0),
+      }),
+      dict({
+        'power': 2508,
+        'timestamp': datetime.datetime(2024, 7, 11, 12, 15),
+      }),
+      dict({
+        'power': 2354,
+        'timestamp': datetime.datetime(2024, 7, 11, 12, 30),
+      }),
+    ]),
+  })
 # ---

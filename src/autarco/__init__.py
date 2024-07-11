@@ -6,7 +6,7 @@ from .exceptions import (
     AutarcoConnectionError,
     AutarcoError,
 )
-from .models import AccountSite, DateStrategy, Inverter, Site, Solar
+from .models import AccountSite, DateStrategy, Inverter, Site, Solar, Stats
 
 __all__ = [
     "AccountSite",
@@ -18,4 +18,5 @@ __all__ = [
     "Inverter",
     "Site",
     "Solar",
+    "Stats",
 ]

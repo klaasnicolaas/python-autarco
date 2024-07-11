@@ -70,48 +70,92 @@ if __name__ == "__main__":
 
 More examples can be found in the [examples folder](./examples/).
 
-## Data
+## Datasets
 
-You can read the following data with this package:
+You can read the following with this package:
+
+- **Account** data with all the sites you have access to.
+- **Inverter(s)** data with the power output, energy output, grid status and health status.
+- **Solar** data with the power production, energy production of today, this month and total.
+- **Site** data with general information.
+- **Statistics** of the inverter(s) with power and energy data.
+
+<details>
+  <summary>CLICK HERE! to see all dataset details</summary>
 
 ### Account
 
 With all the sites you have access to.
 
-- Site ID
-- Public Key
-- System Name
-- Retailer Name
-- Health Status
+| Name          | Type  | Description                        |
+| :------------ | :---- | :--------------------------------- |
+| `site_id`     | `str` | The unique identifier of the site. |
+| `public_key`  | `str` | The public key of the site.        |
+| `system_name` | `str` | The name of the site system.       |
+| `retailer`    | `str` | The name of the retailer.          |
+| `health`      | `str` | The health status of the site.     |
 
 ### Inverter(s)
 
-- Serial Number
-- Out AC - Power (W)
-- Out AC - Energy Total (kWh)
-- Grid Turned Off (bool)
-- Health Status
+| Name                  | Type    | Description                                     |
+| :-------------------- | :------ | :---------------------------------------------- |
+| `serial_number`       | `str`   | The serial number of the inverter.              |
+| `out_ac_power`        | `int`   | The power output of the inverter in W.          |
+| `out_ac_energy_total` | `float` | The total energy output of the inverter in kWh. |
+| `grid_turned_off`     | `bool`  | If the grid is turned off.                      |
+| `health`              | `str`   | The health status of the inverter.              |
 
 ### Solar
 
-- Current Power Production (W)
-- Energy Production - Today (kWh)
-- Energy Production - Month (kWh)
-- Energy Production - Total (kWh)
+| Name                      | Type    | Description                                 |
+| :------------------------ | :------ | :------------------------------------------ |
+| `power_production`        | `int`   | The current power production in W.          |
+| `energy_production_today` | `float` | The energy production of today in kWh.      |
+| `energy_production_month` | `float` | The energy production of this month in kWh. |
+| `energy_production_total` | `float` | The total energy production in kWh.         |
+
 
 ### Site
 
-- Public Key
-- Name
-- Address (dict)
-  - Street
-  - Zip Code
-  - City
-  - Country
-- Timezone
-- Created At (date)
-- Has consumption meter (bool)
-- Has battery (bool)
+| Name                    | Type   | Description                                                                   |
+| :---------------------- | :----- | :---------------------------------------------------------------------------- |
+| `public_key`            | `str`  | The public key of the site.                                                   |
+| `name`                  | `str`  | The name of the site.                                                         |
+| `address`               | `dict` | The address of the site. (**street**, **zip code**, **city** and **country**) |
+| `timezone`              | `str`  | The timezone of the site.                                                     |
+| `created_at`            | `date` | The creation date of the site.                                                |
+| `has_consumption_meter` | `bool` | If the site has a consumption meter.                                          |
+| `has_battery`           | `bool` | If the site has a battery.                                                    |
+
+### Statistics
+
+It is possible to retrieve inverter(s) statistical data from the API, a distinction has been made into two types:
+
+#### Power
+
+Parameters to get the **power** statistics of the site.
+
+- **query_range** (default: `day`) - The range of the query, can be `day` or `week`.
+
+| Name                | Type   | Description                             |
+| :------------------ | :----- | :-------------------------------------- |
+| `graphs`.`pv_power` | `dict` | The power statistics for each inverter. |
+
+You can generate a better list with the property `generate_power_stats_inverter` of the `Stats` object.
+
+#### Energy
+
+Parameters to get the **energy** statistics of the site.
+
+- **query_range** (default: `month`) - The range of the query, can be `month`, `year` or `total`.
+
+| Name                 | Type   | Description                              |
+| :------------------- | :----- | :--------------------------------------- |
+| `graphs`.`pv_energy` | `dict` | The energy statistics for each inverter. |
+
+You can generate a better list with the property `generate_energy_stats_inverter` of the `Stats` object.
+
+</details>
 
 ## Contributing
 

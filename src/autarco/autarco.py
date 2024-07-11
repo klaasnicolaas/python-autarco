@@ -25,6 +25,7 @@ from .models import (
     PowerResponse,
     Site,
     Solar,
+    Stats,
 )
 
 VERSION = metadata.version(__package__)
@@ -47,7 +48,7 @@ class Autarco:
         uri: str,
         *,
         method: str = METH_GET,
-        data: dict[str, Any] | None = None,
+        params: dict[str, Any] | None = None,
     ) -> str:
         """Handle a request to the Autarco API.
 
@@ -58,7 +59,7 @@ class Autarco:
         ----
             uri: Request URI, without '/', for example, 'status'.
             method: HTTP method to use.
-            data: Dictionary of data send to the Autarco API.
+            params: Query parameters to send with the request.
 
         Returns:
         -------
@@ -100,7 +101,7 @@ class Autarco:
                     url,
                     auth=auth,
                     headers=headers,
-                    json=data,
+                    params=params,
                     ssl=True,
                 )
                 response.raise_for_status()
@@ -154,6 +155,44 @@ class Autarco:
         response = await self._request(f"{public_key}/power")
         return PowerResponse.from_json(response).inverters
 
+    async def get_power_statistics(
+        self, public_key: str, query_range: str = "day"
+    ) -> Stats:
+        """Get the statistics of the inverters.
+
+        Args:
+        ----
+            public_key: The public key from the specific site.
+            query_range: The range of time to get the statistics for.
+
+        Returns:
+        -------
+            A list of Inverter objects.
+
+        """
+        response = await self._request(f"{public_key}/power", params={"r": query_range})
+        return PowerResponse.from_json(response).stats
+
+    async def get_energy_statistics(
+        self, public_key: str, query_range: str = "month"
+    ) -> Stats:
+        """Get the statistics of the inverters.
+
+        Args:
+        ----
+            public_key: The public key from the specific site.
+            query_range: The range of time to get the statistics for.
+
+        Returns:
+        -------
+            A list of Inverter objects.
+
+        """
+        response = await self._request(
+            f"{public_key}/energy", params={"r": query_range}
+        )
+        return EnergyResponse.from_json(response).stats
+
     async def get_solar(self, public_key: str) -> Solar:
         """Get information about the solar production from a site.
 
@@ -171,7 +210,7 @@ class Autarco:
 
         power_class = PowerResponse.from_json(power_response)
         energy_class = EnergyResponse.from_json(energy_response)
-        combined = {**power_class.stats["kpis"], **energy_class.stats["kpis"]}
+        combined = {**power_class.stats.kpis, **energy_class.stats.kpis}
         return Solar.from_dict(combined)
 
     async def get_site(self, public_key: str) -> Site:
