@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import json
 import socket
 from dataclasses import dataclass
 from importlib import metadata
@@ -205,12 +206,13 @@ class Autarco:
             An Solar object.
 
         """
-        power_response = await self._request(f"{public_key}/power")
-        energy_response = await self._request(f"{public_key}/energy")
+        power_response = await self._request(f"{public_key}/kpis/power")
+        energy_response = await self._request(f"{public_key}/kpis/energy")
+        combined: dict[str, Any] = {
+            **json.loads(power_response),
+            **json.loads(energy_response),
+        }
 
-        power_class = PowerResponse.from_json(power_response)
-        energy_class = EnergyResponse.from_json(energy_response)
-        combined = {**power_class.stats.kpis, **energy_class.stats.kpis}
         return Solar.from_dict(combined)
 
     async def get_site(self, public_key: str) -> Site:
