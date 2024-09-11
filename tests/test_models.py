@@ -5,7 +5,16 @@ from datetime import date
 from aresponses import ResponsesMockServer
 from syrupy.assertion import SnapshotAssertion
 
-from autarco import AccountSite, Autarco, DateStrategy, Inverter, Site, Solar, Stats
+from autarco import (
+    AccountSite,
+    Autarco,
+    Battery,
+    DateStrategy,
+    Inverter,
+    Site,
+    Solar,
+    Stats,
+)
 
 from . import load_fixtures
 
@@ -62,6 +71,38 @@ async def test_get_solar(
     )
     solar: Solar = await autarco_client.get_solar(public_key="fake_key")
     assert solar == snapshot
+
+
+async def test_get_batter(
+    aresponses: ResponsesMockServer,
+    snapshot: SnapshotAssertion,
+    autarco_client: Autarco,
+) -> None:
+    """Test request from a Autarco API - Battery object."""
+    # Energy response
+    aresponses.add(
+        "my.autarco.com",
+        "/api/site/fake_key/kpis/energy",
+        "GET",
+        aresponses.Response(
+            text=load_fixtures("battery/kpis_energy.json"),
+            status=200,
+            headers={"Content-Type": "application/json; charset=utf-8"},
+        ),
+    )
+    # Power response
+    aresponses.add(
+        "my.autarco.com",
+        "/api/site/fake_key/kpis/power",
+        "GET",
+        aresponses.Response(
+            text=load_fixtures("battery/kpis_power.json"),
+            status=200,
+            headers={"Content-Type": "application/json; charset=utf-8"},
+        ),
+    )
+    battery: Battery = await autarco_client.get_battery(public_key="fake_key")
+    assert battery == snapshot
 
 
 async def test_get_site(

@@ -1,0 +1,21 @@
+{
+  "inverters": {
+    "380016531035": {
+      "latest": "2024-09-11T12:12:48+00:00",
+      "power": 961,
+      "health": "OK",
+      "error": null
+    }
+  },
+  "pv_now": 961,
+  "is_daytime": true,
+  "consumed_now": 0,
+  "grid_net_import_now": 0,
+  "grid_export_now": 0,
+  "consumption_now": 184,
+  "self_consumption_now": 100,
+  "self_sufficiency_now": 100,
+  "battery_now": 777,
+  "battery_net_charged_now": 777,
+  "battery_soc": 71
+}

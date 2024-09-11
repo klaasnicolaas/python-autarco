@@ -129,6 +129,9 @@
     AccountSite(site_id=1000, public_key='blabla', system_name='Mijn Autarco', retailer='Klaas Schoute', health='OK'),
   ])
 # ---
+# name: test_get_batter
+  Battery(battery_flow_now=777, battery_net_charged_now=777, battery_state_of_charge=56, battery_discharged_today=2, battery_discharged_month=25, battery_discharged_total=696, battery_charged_today=1, battery_charged_month=26, battery_charged_total=748)
+# ---
 # name: test_get_inverters
   dict({
     '123456789876': Inverter(serial_number='123456789876', out_ac_power=100, out_ac_energy_total=6605, grid_turned_off=False, health='OK'),
