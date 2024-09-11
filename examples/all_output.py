@@ -2,7 +2,7 @@
 
 import asyncio
 
-from autarco import AccountSite, Autarco, Inverter, Site, Solar
+from autarco import AccountSite, Autarco, Battery, Inverter, Site, Solar
 
 
 async def main() -> None:
@@ -58,6 +58,12 @@ async def main() -> None:
         print(f"Created At: {site.created_at}")
         print(f"Consumption Meter: {site.has_consumption_meter}")
         print(f"Has Battery: {site.has_battery}")
+
+        if site.has_battery:
+            battery: Battery = await autarco.get_battery(account_sites[0].public_key)
+            print()
+            print("--- BATTERY ---")
+            print(battery)
 
 
 if __name__ == "__main__":
