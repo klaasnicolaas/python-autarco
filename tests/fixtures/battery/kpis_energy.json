@@ -1,0 +1,42 @@
+{
+  "is_daytime": true,
+  "pv_today": 1,
+  "pv_to_date": 4008,
+  "pv_month": 141,
+
+  "co2_today": 0,
+  "co2_month": 54,
+  "co2_to_date": 1527,
+
+  "grid_net_import_to_date": -787,
+  "grid_to_date": -787,
+  "grid_import_to_date": 173,
+  "grid_in_to_date": 173,
+  "grid_import_today": 0,
+  "grid_import_month": 1,
+  "grid_export_to_date": 960,
+  "grid_export_today": 0,
+  "grid_export_month": 39,
+
+  "battery_soc": 56,
+  "battery_discharged_today": 2,
+  "battery_discharged_month": 25,
+  "battery_discharged_to_date": 696,
+
+  "battery_out_to_date": 696,
+  "battery_charged_today": 1,
+  "battery_charged_month": 26,
+  "battery_charged_to_date": 748,
+
+  "battery_net_charged_month": 1,
+  "battery_net_charged_to_date": 52,
+  "battery_to_date": 52,
+  "consumption_today": 2,
+  "consumption_month": 102,
+  "consumption_to_date": 3169,
+
+  "self_sufficiency_month": 100,
+  "self_sufficiency_to_date": 100,
+  "self_consumption_month": 72,
+  "self_consumption_to_date": 76
+}
