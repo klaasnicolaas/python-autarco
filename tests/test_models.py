@@ -41,10 +41,10 @@ async def test_get_solar(
     # Energy response
     aresponses.add(
         "my.autarco.com",
-        "/api/site/fake_key/energy",
+        "/api/site/fake_key/kpis/energy",
         "GET",
         aresponses.Response(
-            text=load_fixtures("energy.json"),
+            text=load_fixtures("kpis_energy.json"),
             status=200,
             headers={"Content-Type": "application/json; charset=utf-8"},
         ),
@@ -52,10 +52,10 @@ async def test_get_solar(
     # Power response
     aresponses.add(
         "my.autarco.com",
-        "/api/site/fake_key/power",
+        "/api/site/fake_key/kpis/power",
         "GET",
         aresponses.Response(
-            text=load_fixtures("power.json"),
+            text=load_fixtures("kpis_power.json"),
             status=200,
             headers={"Content-Type": "application/json; charset=utf-8"},
         ),

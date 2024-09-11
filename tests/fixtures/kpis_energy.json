@@ -1,0 +1,16 @@
+{
+  "is_daytime": true,
+  "pv_today": 8,
+  "pv_to_date": 29176,
+  "pv_month": 114,
+  "co2_today": 2,
+  "co2_month": 31,
+  "co2_to_date": 7808,
+  "consumption_today": 8,
+  "consumption_month": 114,
+  "consumption_to_date": 29176,
+  "self_sufficiency_month": 0,
+  "self_sufficiency_to_date": 0,
+  "self_consumption_month": 0,
+  "self_consumption_to_date": 0
+}

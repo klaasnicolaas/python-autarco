@@ -1,0 +1,12 @@
+{
+  "inverters": {
+    "380016531035": {
+      "latest": "2024-09-11T12:12:48+00:00",
+      "power": 3323,
+      "health": "OK",
+      "error": null
+    }
+  },
+  "pv_now": 3323,
+  "is_daytime": true
+}
