@@ -57,9 +57,11 @@ async def main():
         account_sites = await client.get_account()
 
         inverters = await client.get_inverters(account_sites[0].public_key)
+        battery = await client.get_battery(account_sites[0].public_key)
         solar = await client.get_solar(account_sites[0].public_key)
         site = await client.get_site(account_sites[0].public_key)
         print(inverters)
+        print(battery)
         print(solar)
         print(site)
 
@@ -77,7 +79,8 @@ You can read the following with this package:
 - **Account** data with all the sites you have access to.
 - **Inverter(s)** data with the power output, energy output, grid status and health status.
 - **Solar** data with the power production, energy production of today, this month and total.
-- **Site** data with general information.
+- **Battery** data with insights into your batteries.
+- **Site** general information about a specific site.
 - **Statistics** of the inverter(s) with power and energy data.
 
 <details>
@@ -114,6 +117,19 @@ With all the sites you have access to.
 | `energy_production_month` | `float` | The energy production of this month in kWh. |
 | `energy_production_total` | `float` | The total energy production in kWh.         |
 
+### Battery
+
+| Name                      | Type  | Description                                                       |
+| :------------------------ | :---- | :---------------------------------------------------------------- |
+| `battery_flow_now`        | `int` | The current battery flow in W.                                    |
+| `battery_net_charged_now` | `int` | The current net charged battery in W.                             |
+| `battery_state_of_charge` | `int` | The current state of charge of the battery in %.                  |
+| `battery_discharged_today`| `int` | How much energy the battery has discharged **today** in kWh.      |
+| `battery_discharged_month`| `int` | How much energy the battery has discharged this **month** in kWh. |
+| `battery_discharged_total`| `int` | How much energy the battery has discharged in **total** in kWh.   |
+| `battery_charged_today`   | `int` | How much energy the battery has charged **today** in kWh.         |
+| `battery_charged_month`   | `int` | How much energy the battery has charged this **month** in kWh.    |
+| `battery_charged_total`   | `int` | How much energy the battery has charged in **total** in kWh.      |
 
 ### Site
 

@@ -79,6 +79,38 @@ class Solar(DataClassDictMixin):
 
 
 @dataclass
+class Battery(DataClassDictMixin):
+    """Object representing a Battery model response from the API."""
+
+    # Power - Flow
+    battery_flow_now: int = field(metadata=field_options(alias="battery_now"))
+    battery_net_charged_now: int
+    battery_state_of_charge: int = field(metadata=field_options(alias="battery_soc"))
+
+    # Energy - Discharged
+    battery_discharged_today: int = field(
+        metadata=field_options(alias="battery_discharged_today")
+    )
+    battery_discharged_month: int = field(
+        metadata=field_options(alias="battery_discharged_month")
+    )
+    battery_discharged_total: int = field(
+        metadata=field_options(alias="battery_discharged_to_date")
+    )
+
+    # Energy - Charged
+    battery_charged_today: int = field(
+        metadata=field_options(alias="battery_charged_today")
+    )
+    battery_charged_month: int = field(
+        metadata=field_options(alias="battery_charged_month")
+    )
+    battery_charged_total: int = field(
+        metadata=field_options(alias="battery_charged_to_date")
+    )
+
+
+@dataclass
 class Graphs(DataClassORJSONMixin):
     """Object representing Graphs model from the API."""
 

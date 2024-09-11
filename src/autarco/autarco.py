@@ -21,6 +21,7 @@ from .exceptions import (
 from .models import (
     AccountResponse,
     AccountSite,
+    Battery,
     EnergyResponse,
     Inverter,
     PowerResponse,
@@ -130,6 +131,22 @@ class Autarco:
 
         return text
 
+    async def _get_combined_data(self, public_key: str) -> dict[str, Any]:
+        """Get a combined dictionary with power and energy data from a site.
+
+        Args:
+        ----
+            public_key: The public key from your site.
+
+        Returns:
+        -------
+            A dictionary with combined power and energy data.
+
+        """
+        power_response = await self._request(f"{public_key}/kpis/power")
+        energy_response = await self._request(f"{public_key}/kpis/energy")
+        return {**json.loads(power_response), **json.loads(energy_response)}
+
     async def get_account(self) -> list[AccountSite]:
         """Get account with list of sites.
 
@@ -206,14 +223,8 @@ class Autarco:
             An Solar object.
 
         """
-        power_response = await self._request(f"{public_key}/kpis/power")
-        energy_response = await self._request(f"{public_key}/kpis/energy")
-        combined: dict[str, Any] = {
-            **json.loads(power_response),
-            **json.loads(energy_response),
-        }
-
-        return Solar.from_dict(combined)
+        combined_data = await self._get_combined_data(public_key)
+        return Solar.from_dict(combined_data)
 
     async def get_site(self, public_key: str) -> Site:
         """Get information about your system site.
@@ -229,6 +240,21 @@ class Autarco:
         """
         response = await self._request(f"{public_key}/")
         return Site.from_json(response)
+
+    async def get_battery(self, public_key: str) -> Battery:
+        """Get information about the battery from a site.
+
+        Args:
+        ----
+            public_key: The public key from your site.
+
+        Returns:
+        -------
+            An Battery object.
+
+        """
+        combined_data = await self._get_combined_data(public_key)
+        return Battery.from_dict(combined_data)
 
     async def close(self) -> None:
         """Close open client session."""
