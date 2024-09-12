@@ -73,7 +73,7 @@ async def test_get_solar(
     assert solar == snapshot
 
 
-async def test_get_batter(
+async def test_get_battery(
     aresponses: ResponsesMockServer,
     snapshot: SnapshotAssertion,
     autarco_client: Autarco,
