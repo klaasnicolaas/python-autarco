@@ -119,17 +119,17 @@ With all the sites you have access to.
 
 ### Battery
 
-| Name                      | Type  | Description                                                       |
-| :------------------------ | :---- | :---------------------------------------------------------------- |
-| `battery_flow_now`        | `int` | The current battery flow in W.                                    |
-| `battery_net_charged_now` | `int` | The current net charged battery in W.                             |
-| `battery_state_of_charge` | `int` | The current state of charge of the battery in %.                  |
-| `battery_discharged_today`| `int` | How much energy the battery has discharged **today** in kWh.      |
-| `battery_discharged_month`| `int` | How much energy the battery has discharged this **month** in kWh. |
-| `battery_discharged_total`| `int` | How much energy the battery has discharged in **total** in kWh.   |
-| `battery_charged_today`   | `int` | How much energy the battery has charged **today** in kWh.         |
-| `battery_charged_month`   | `int` | How much energy the battery has charged this **month** in kWh.    |
-| `battery_charged_total`   | `int` | How much energy the battery has charged in **total** in kWh.      |
+| Name              | Type  | Description                                                       |
+| :-----------------| :---- | :---------------------------------------------------------------- |
+| `flow_now`        | `int` | The current battery flow in W.                                    |
+| `net_charged_now` | `int` | The current net charged battery in W.                             |
+| `state_of_charge` | `int` | The current state of charge of the battery in %.                  |
+| `discharged_today`| `int` | How much energy the battery has discharged **today** in kWh.      |
+| `discharged_month`| `int` | How much energy the battery has discharged this **month** in kWh. |
+| `discharged_total`| `int` | How much energy the battery has discharged in **total** in kWh.   |
+| `charged_today`   | `int` | How much energy the battery has charged **today** in kWh.         |
+| `charged_month`   | `int` | How much energy the battery has charged this **month** in kWh.    |
+| `charged_total`   | `int` | How much energy the battery has charged in **total** in kWh.      |
 
 ### Site
 
