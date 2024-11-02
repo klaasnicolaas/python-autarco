@@ -165,10 +165,12 @@ class Site(DataClassORJSONMixin):
     name: str
     address: Address
 
-    timezone: str
-    created_at: date = field(metadata=field_options(alias="dt_created"))
     has_consumption_meter: bool
     has_battery: bool
+    timezone: str
+    created_at: date | None = field(
+        metadata=field_options(alias="dt_created"), default=None
+    )
 
 
 @dataclass
