@@ -125,6 +125,26 @@ async def test_get_site(
     assert site == snapshot
 
 
+async def test_get_old_site(
+    aresponses: ResponsesMockServer,
+    snapshot: SnapshotAssertion,
+    autarco_client: Autarco,
+) -> None:
+    """Test request from a Autarco API - old Site object."""
+    aresponses.add(
+        "my.autarco.com",
+        "/api/site/fake_key/",
+        "GET",
+        aresponses.Response(
+            text=load_fixtures("old_site.json"),
+            status=200,
+            headers={"Content-Type": "application/json; charset=utf-8"},
+        ),
+    )
+    site: Site = await autarco_client.get_site(public_key="fake_key")
+    assert site == snapshot
+
+
 async def test_get_account(
     aresponses: ResponsesMockServer,
     snapshot: SnapshotAssertion,

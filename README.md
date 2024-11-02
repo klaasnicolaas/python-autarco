@@ -138,10 +138,10 @@ With all the sites you have access to.
 | `public_key`            | `str`  | The public key of the site.                                                   |
 | `name`                  | `str`  | The name of the site.                                                         |
 | `address`               | `dict` | The address of the site. (**street**, **zip code**, **city** and **country**) |
-| `timezone`              | `str`  | The timezone of the site.                                                     |
-| `created_at`            | `date` | The creation date of the site.                                                |
 | `has_consumption_meter` | `bool` | If the site has a consumption meter.                                          |
+| `timezone`              | `str`  | The timezone of the site.                                                     |
 | `has_battery`           | `bool` | If the site has a battery.                                                    |
+| `created_at`            | `date` | The creation date of the site. (default: None)                                |
 
 ### Statistics
 

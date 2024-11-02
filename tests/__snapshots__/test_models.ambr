@@ -138,8 +138,11 @@
     '987654321234': Inverter(serial_number='987654321234', out_ac_power=100, out_ac_energy_total=3607, grid_turned_off=False, health='OK'),
   })
 # ---
+# name: test_get_old_site
+  Site(public_key='blabla', name='My Autarco solar installation', address=Address(street='Streetname 00', zip_code='1111 AA', city='Valkenswaard', country='Nederland'), has_consumption_meter=False, has_battery=False, timezone='Europe/Amsterdam', created_at=None)
+# ---
 # name: test_get_site
-  Site(public_key='blabla', name='My Autarco solar installation', address=Address(street='Streetname 00', zip_code='1111 AA', city='Valkenswaard', country='Nederland'), timezone='Europe/Amsterdam', created_at=datetime.date(2023, 5, 15), has_consumption_meter=False, has_battery=False)
+  Site(public_key='blabla', name='My Autarco solar installation', address=Address(street='Streetname 00', zip_code='1111 AA', city='Valkenswaard', country='Nederland'), has_consumption_meter=False, has_battery=False, timezone='Europe/Amsterdam', created_at=datetime.date(2023, 5, 15))
 # ---
 # name: test_get_solar
   Solar(power_production=3323, energy_production_today=8, energy_production_month=114, energy_production_total=29176)
