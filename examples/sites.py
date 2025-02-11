@@ -12,8 +12,8 @@ async def main() -> None:
         password="password",
     ) as client:
         account_sites: list[AccountSite] = await client.get_account()
-        site = await client.get_site(account_sites[0].public_key)
-        print(site)
+        first_site = await client.get_site(account_sites[0].public_key)
+        print(first_site)
 
 
 if __name__ == "__main__":
