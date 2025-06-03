@@ -32,7 +32,7 @@
       "address_line_2": null,
       "address_line_3": null,
       "city": "City",
-      "postcode": "2222AB",
+      "postcode": null,
       "country_code": "NL",
       "country_name": "",
       "site_id": 1000,
