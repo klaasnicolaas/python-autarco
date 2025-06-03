@@ -126,7 +126,8 @@
 # ---
 # name: test_get_account
   list([
-    AccountSite(site_id=1000, public_key='blabla', system_name='Mijn Autarco', retailer='Klaas Schoute', health='OK'),
+    AccountSite(site_id=1000, public_key='site_key_1', system_name='My Autarco', retailer='Klaas Schoute', health='OK'),
+    AccountSite(site_id=1000, public_key='site_key_2', system_name='My Autarco', retailer='Klaas Schoute', health='OK'),
   ])
 # ---
 # name: test_get_battery
@@ -139,10 +140,10 @@
   })
 # ---
 # name: test_get_old_site
-  Site(public_key='blabla', name='My Autarco solar installation', address=Address(street='Streetname 00', zip_code='1111 AA', city='Valkenswaard', country='Nederland'), has_consumption_meter=False, has_battery=False, timezone='Europe/Amsterdam', created_at=None)
+  Site(public_key='site_key_1', name='My Autarco solar installation', address=Address(street='Streetname 00', zip_code='1111 AA', city='Cityname', country='Nederland'), has_consumption_meter=False, has_battery=False, timezone='Europe/Amsterdam', created_at=None)
 # ---
 # name: test_get_site
-  Site(public_key='blabla', name='My Autarco solar installation', address=Address(street='Streetname 00', zip_code='1111 AA', city='Valkenswaard', country='Nederland'), has_consumption_meter=False, has_battery=False, timezone='Europe/Amsterdam', created_at=datetime.date(2023, 5, 15))
+  Site(public_key='site_key_1', name='My Autarco solar installation', address=Address(street='Streetname 00', zip_code='1111 AA', city='Cityname', country='Nederland'), has_consumption_meter=False, has_battery=False, timezone='Europe/Amsterdam', created_at=datetime.date(2023, 5, 15))
 # ---
 # name: test_get_solar
   Solar(power_production=3323, energy_production_today=8, energy_production_month=114, energy_production_total=29176)

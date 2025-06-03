@@ -3,23 +3,43 @@
   "data": [
     {
       "mock": 0,
-      "name_end_user": "Mijn Autarco",
+      "name_end_user": "My Autarco",
       "name_retailer": "Klaas Schoute",
-      "public_key": "blabla",
+      "public_key": "site_key_1",
       "dt_created": "2017-03-14 13:02:44",
       "dt_updated": "2020-11-16 08:07:52",
-      "address_line_1": "Zernikedreef 00",
+      "address_line_1": "Street 00",
       "address_line_2": null,
       "address_line_3": null,
-      "city": "Leiden",
-      "postcode": "2333CK",
+      "city": "City",
+      "postcode": "1111AB",
       "country_code": "NL",
       "country_name": "",
       "site_id": 1000,
       "address_id": 1000,
       "nominal_power": 1000,
       "health": "OK",
-      "name": "Mijn Autarco"
+      "name": "My Autarco"
+    },
+    {
+      "mock": 0,
+      "name_end_user": "My Autarco",
+      "name_retailer": "Klaas Schoute",
+      "public_key": "site_key_2",
+      "dt_created": "2017-03-14 13:02:44",
+      "dt_updated": "2020-11-16 08:07:52",
+      "address_line_1": "Street 00",
+      "address_line_2": null,
+      "address_line_3": null,
+      "city": "City",
+      "postcode": "2222AB",
+      "country_code": "NL",
+      "country_name": "",
+      "site_id": 1000,
+      "address_id": 1000,
+      "nominal_power": 1000,
+      "health": "OK",
+      "name": "My Autarco"
     }
   ],
   "first_page_url": "https://my.autarco.com/api/site?page=1",
@@ -28,5 +48,5 @@
   "path": "https://my.autarco.com/api/site",
   "per_page": 30,
   "prev_page_url": null,
-  "to": 1
+  "to": 2
 }

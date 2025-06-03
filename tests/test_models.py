@@ -163,7 +163,8 @@ async def test_get_account(
     )
     account_sites: list[AccountSite] = await autarco_client.get_account()
     assert account_sites == snapshot
-    assert account_sites[0].public_key == "blabla"
+    assert account_sites[0].public_key == "site_key_1"
+    assert account_sites[1].public_key == "site_key_2"
 
 
 async def test_power_statistics(
