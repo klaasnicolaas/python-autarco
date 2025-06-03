@@ -126,8 +126,8 @@
 # ---
 # name: test_get_account
   list([
-    AccountSite(site_id=1000, public_key='site_key_1', system_name='My Autarco', retailer='Klaas Schoute', health='OK'),
-    AccountSite(site_id=1000, public_key='site_key_2', system_name='My Autarco', retailer='Klaas Schoute', health='OK'),
+    AccountSite(site_id=1000, public_key='site_key_1', system_name='My Autarco', retailer='John Doe', health='OK'),
+    AccountSite(site_id=1000, public_key='site_key_2', system_name='My Autarco', retailer='Jan Jansen', health='OK'),
   ])
 # ---
 # name: test_get_battery
