@@ -177,7 +177,9 @@ class Site(DataClassORJSONMixin):
 class Address(DataClassORJSONMixin):
     """Object representing an Address model response from the API."""
 
-    street: str = field(metadata=field_options(alias="address_line_1"))
-    zip_code: str = field(metadata=field_options(alias="postcode"))
-    city: str
-    country: str
+    street: str | None = field(
+        metadata=field_options(alias="address_line_1"), default=None
+    )
+    zip_code: str | None = field(metadata=field_options(alias="postcode"), default=None)
+    city: str | None = field(default=None)
+    country: str | None = field(default=None)
