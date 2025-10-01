@@ -15,7 +15,6 @@
 
 [![Build Status][build-shield]][build-url]
 [![Typing Status][typing-shield]][typing-url]
-[![Maintainability][maintainability-shield]][maintainability-url]
 [![Code Coverage][codecov-shield]][codecov-url]
 
 Asynchronous Python client for the Autarco Inverters (External API).
@@ -286,8 +285,6 @@ SOFTWARE.
 [downloads-url]: https://pypistats.org/packages/autarco
 [last-commit-shield]: https://img.shields.io/github/last-commit/klaasnicolaas/python-autarco.svg
 [license-shield]: https://img.shields.io/github/license/klaasnicolaas/python-autarco.svg
-[maintainability-shield]: https://api.codeclimate.com/v1/badges/d38cdaa8625b6657d40b/maintainability
-[maintainability-url]: https://codeclimate.com/github/klaasnicolaas/python-autarco/maintainability
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2025.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
 [pypi]: https://pypi.org/project/autarco/
