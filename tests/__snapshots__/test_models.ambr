@@ -140,10 +140,10 @@
   })
 # ---
 # name: test_get_old_site
-  Site(public_key='site_key_1', name='My Autarco solar installation', address=Address(street='Streetname 00', zip_code='1111 AA', city='Cityname', country='Nederland'), has_consumption_meter=False, has_battery=False, timezone='Europe/Amsterdam', created_at=None)
+  Site(public_key='site_key_1', name='My Autarco solar installation', address=Address(street='Streetname 00', zip_code='1111 AA', city='Cityname', country='Nederland'), co2_today=2, co2_month=31, co2_total=7808, consumption_today=8, consumption_month=114, consumption_total=29176, has_consumption_meter=False, has_battery=False, timezone='Europe/Amsterdam', created_at=None)
 # ---
 # name: test_get_site
-  Site(public_key='site_key_1', name='My Autarco solar installation', address=Address(street='Streetname 00', zip_code='1111 AA', city='Cityname', country='Nederland'), has_consumption_meter=False, has_battery=False, timezone='Europe/Amsterdam', created_at=datetime.date(2023, 5, 15))
+  Site(public_key='site_key_1', name='My Autarco solar installation', address=Address(street='Streetname 00', zip_code='1111 AA', city='Cityname', country='Nederland'), co2_today=2, co2_month=31, co2_total=7808, consumption_today=8, consumption_month=114, consumption_total=29176, has_consumption_meter=False, has_battery=False, timezone='Europe/Amsterdam', created_at=datetime.date(2023, 5, 15))
 # ---
 # name: test_get_solar
   Solar(power_production=3323, energy_production_today=8, energy_production_month=114, energy_production_total=29176)

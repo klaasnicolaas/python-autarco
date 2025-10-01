@@ -165,6 +165,16 @@ class Site(DataClassORJSONMixin):
     name: str
     address: Address
 
+    # CO2 compensations
+    co2_today: int
+    co2_month: int
+    co2_total: int = field(metadata=field_options(alias="co2_to_date"))
+
+    # Energy consumption
+    consumption_today: int
+    consumption_month: int
+    consumption_total: int = field(metadata=field_options(alias="consumption_to_date"))
+
     has_consumption_meter: bool
     has_battery: bool
     timezone: str

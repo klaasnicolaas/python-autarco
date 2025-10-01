@@ -121,6 +121,17 @@ async def test_get_site(
             headers={"Content-Type": "application/json; charset=utf-8"},
         ),
     )
+    # Energy response used to enrich Site with CO2/consumption
+    aresponses.add(
+        "my.autarco.com",
+        "/api/site/fake_key/kpis/energy",
+        "GET",
+        aresponses.Response(
+            text=load_fixtures("kpis_energy.json"),
+            status=200,
+            headers={"Content-Type": "application/json; charset=utf-8"},
+        ),
+    )
     site: Site = await autarco_client.get_site(public_key="fake_key")
     assert site == snapshot
 
@@ -137,6 +148,17 @@ async def test_get_old_site(
         "GET",
         aresponses.Response(
             text=load_fixtures("old_site.json"),
+            status=200,
+            headers={"Content-Type": "application/json; charset=utf-8"},
+        ),
+    )
+    # Energy response used to enrich Site with CO2/consumption
+    aresponses.add(
+        "my.autarco.com",
+        "/api/site/fake_key/kpis/energy",
+        "GET",
+        aresponses.Response(
+            text=load_fixtures("kpis_energy.json"),
             status=200,
             headers={"Content-Type": "application/json; charset=utf-8"},
         ),
