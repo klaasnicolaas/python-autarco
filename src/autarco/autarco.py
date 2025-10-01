@@ -238,8 +238,14 @@ class Autarco:
             An Site object.
 
         """
-        response = await self._request(f"{public_key}/")
-        return Site.from_json(response)
+        # Combine base site data with KPI energy data to enrich CO2/consumption fields
+        site_response = await self._request(f"{public_key}/")
+        energy_response = await self._request(f"{public_key}/kpis/energy")
+        combined: dict[str, Any] = {
+            **json.loads(site_response),
+            **json.loads(energy_response),
+        }
+        return Site.from_json(json.dumps(combined))
 
     async def get_battery(self, public_key: str) -> Battery:
         """Get information about the battery from a site.
