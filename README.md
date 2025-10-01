@@ -98,6 +98,24 @@ With all the sites you have access to.
 | `retailer`    | `str` | The name of the retailer.          |
 | `health`      | `str` | The health status of the site.     |
 
+### Site
+
+| Name                    | Type   | Description                                                                   |
+| :---------------------- | :----- | :---------------------------------------------------------------------------- |
+| `public_key`            | `str`  | The public key of the site.                                                   |
+| `name`                  | `str`  | The name of the site.                                                         |
+| `address`               | `dict` | The address of the site. (**street**, **zip code**, **city** and **country**) |
+| `co2_today`             | `float`| The CO2 saved today in kg.                                                    |
+| `co2_month`             | `float`| The CO2 saved this month in kg.                                               |
+| `co2_total`             | `float`| The total CO2 saved in kg.                                                    |
+| `consumption_today`     | `float`| The energy consumption of today in kWh.                                       |
+| `consumption_month`     | `float`| The energy consumption of this month in kWh.                                  |
+| `consumption_total`     | `float`| The total energy consumption in kWh.                                          |
+| `has_consumption_meter` | `bool` | If the site has a consumption meter.                                          |
+| `timezone`              | `str`  | The timezone of the site.                                                     |
+| `has_battery`           | `bool` | If the site has a battery.                                                    |
+| `created_at`            | `date` | The creation date of the site. (default: None)                                |
+
 ### Inverter(s)
 
 | Name                  | Type    | Description                                     |
@@ -130,18 +148,6 @@ With all the sites you have access to.
 | `charged_today`   | `int` | How much energy the battery has charged **today** in kWh.         |
 | `charged_month`   | `int` | How much energy the battery has charged this **month** in kWh.    |
 | `charged_total`   | `int` | How much energy the battery has charged in **total** in kWh.      |
-
-### Site
-
-| Name                    | Type   | Description                                                                   |
-| :---------------------- | :----- | :---------------------------------------------------------------------------- |
-| `public_key`            | `str`  | The public key of the site.                                                   |
-| `name`                  | `str`  | The name of the site.                                                         |
-| `address`               | `dict` | The address of the site. (**street**, **zip code**, **city** and **country**) |
-| `has_consumption_meter` | `bool` | If the site has a consumption meter.                                          |
-| `timezone`              | `str`  | The timezone of the site.                                                     |
-| `has_battery`           | `bool` | If the site has a battery.                                                    |
-| `created_at`            | `date` | The creation date of the site. (default: None)                                |
 
 ### Statistics
 
