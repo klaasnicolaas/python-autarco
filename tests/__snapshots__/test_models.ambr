@@ -1,6 +1,48 @@
 # serializer version: 1
 # name: test_energy_statistics
-  Stats(graphs=Graphs(pv_power=None, pv_energy={'1802040231290027': {datetime.date(2024, 2, 1): 0, datetime.date(2024, 2, 2): 0, datetime.date(2024, 2, 3): 0, datetime.date(2024, 2, 4): 0, datetime.date(2024, 2, 5): 0, datetime.date(2024, 2, 6): 0, datetime.date(2024, 2, 7): 0, datetime.date(2024, 2, 8): 0, datetime.date(2024, 2, 9): 0, datetime.date(2024, 2, 10): 0, datetime.date(2024, 2, 11): 0, datetime.date(2024, 2, 12): 0, datetime.date(2024, 2, 13): 0, datetime.date(2024, 2, 14): 0, datetime.date(2024, 2, 15): 0, datetime.date(2024, 2, 16): 0, datetime.date(2024, 2, 17): 0, datetime.date(2024, 2, 18): 0, datetime.date(2024, 2, 19): 0, datetime.date(2024, 2, 20): 0, datetime.date(2024, 2, 21): 0, datetime.date(2024, 2, 22): 0, datetime.date(2024, 2, 23): 0, datetime.date(2024, 2, 24): 0, datetime.date(2024, 2, 25): 0, datetime.date(2024, 2, 26): 0, datetime.date(2024, 2, 27): 0, datetime.date(2024, 2, 28): 0, datetime.date(2024, 2, 29): 0}}), kpis={'pv_today': 4, 'pv_month': 58, 'pv_to_date': 10379})
+  Stats(
+    graphs=Graphs(
+      pv_energy=dict({
+        '1802040231290027': dict({
+          datetime.date(2024, 2, 1): 0,
+          datetime.date(2024, 2, 2): 0,
+          datetime.date(2024, 2, 3): 0,
+          datetime.date(2024, 2, 4): 0,
+          datetime.date(2024, 2, 5): 0,
+          datetime.date(2024, 2, 6): 0,
+          datetime.date(2024, 2, 7): 0,
+          datetime.date(2024, 2, 8): 0,
+          datetime.date(2024, 2, 9): 0,
+          datetime.date(2024, 2, 10): 0,
+          datetime.date(2024, 2, 11): 0,
+          datetime.date(2024, 2, 12): 0,
+          datetime.date(2024, 2, 13): 0,
+          datetime.date(2024, 2, 14): 0,
+          datetime.date(2024, 2, 15): 0,
+          datetime.date(2024, 2, 16): 0,
+          datetime.date(2024, 2, 17): 0,
+          datetime.date(2024, 2, 18): 0,
+          datetime.date(2024, 2, 19): 0,
+          datetime.date(2024, 2, 20): 0,
+          datetime.date(2024, 2, 21): 0,
+          datetime.date(2024, 2, 22): 0,
+          datetime.date(2024, 2, 23): 0,
+          datetime.date(2024, 2, 24): 0,
+          datetime.date(2024, 2, 25): 0,
+          datetime.date(2024, 2, 26): 0,
+          datetime.date(2024, 2, 27): 0,
+          datetime.date(2024, 2, 28): 0,
+          datetime.date(2024, 2, 29): 0,
+        }),
+      }),
+      pv_power=None,
+    ),
+    kpis=dict({
+      'pv_month': 58,
+      'pv_to_date': 10379,
+      'pv_today': 4,
+    }),
+  )
 # ---
 # name: test_energy_statistics.1
   dict({
@@ -126,30 +168,169 @@
 # ---
 # name: test_get_account
   list([
-    AccountSite(site_id=1000, public_key='site_key_1', system_name='My Autarco', retailer='John Doe', health='OK'),
-    AccountSite(site_id=1000, public_key='site_key_2', system_name='My Autarco', retailer='Jan Jansen', health='OK'),
+    AccountSite(
+      health='OK',
+      public_key='site_key_1',
+      retailer='John Doe',
+      site_id=1000,
+      system_name='My Autarco',
+    ),
+    AccountSite(
+      health='OK',
+      public_key='site_key_2',
+      retailer='Jan Jansen',
+      site_id=1000,
+      system_name='My Autarco',
+    ),
   ])
 # ---
 # name: test_get_battery
-  Battery(flow_now=777, net_charged_now=777, state_of_charge=56, discharged_today=2, discharged_month=25, discharged_total=696, charged_today=1, charged_month=26, charged_total=748)
+  Battery(
+    charged_month=26,
+    charged_today=1,
+    charged_total=748,
+    discharged_month=25,
+    discharged_today=2,
+    discharged_total=696,
+    flow_now=777,
+    net_charged_now=777,
+    state_of_charge=56,
+  )
 # ---
 # name: test_get_inverters
   dict({
-    '123456789876': Inverter(serial_number='123456789876', out_ac_power=100, out_ac_energy_total=6605, grid_turned_off=False, health='OK'),
-    '987654321234': Inverter(serial_number='987654321234', out_ac_power=100, out_ac_energy_total=3607, grid_turned_off=False, health='OK'),
+    '123456789876': Inverter(
+      grid_turned_off=False,
+      health='OK',
+      out_ac_energy_total=6605,
+      out_ac_power=100,
+      serial_number='123456789876',
+    ),
+    '987654321234': Inverter(
+      grid_turned_off=False,
+      health='OK',
+      out_ac_energy_total=3607,
+      out_ac_power=100,
+      serial_number='987654321234',
+    ),
   })
 # ---
 # name: test_get_old_site
-  Site(public_key='site_key_1', name='My Autarco solar installation', address=Address(street='Streetname 00', zip_code='1111 AA', city='Cityname', country='Nederland'), co2_today=2, co2_month=31, co2_total=7808, consumption_today=8, consumption_month=114, consumption_total=29176, has_consumption_meter=False, has_battery=False, timezone='Europe/Amsterdam', created_at=None)
+  Site(
+    address=Address(
+      city='Cityname',
+      country='Nederland',
+      street='Streetname 00',
+      zip_code='1111 AA',
+    ),
+    co2_month=31,
+    co2_today=2,
+    co2_total=7808,
+    consumption_month=114,
+    consumption_today=8,
+    consumption_total=29176,
+    created_at=None,
+    has_battery=False,
+    has_consumption_meter=False,
+    name='My Autarco solar installation',
+    public_key='site_key_1',
+    timezone='Europe/Amsterdam',
+  )
 # ---
 # name: test_get_site
-  Site(public_key='site_key_1', name='My Autarco solar installation', address=Address(street='Streetname 00', zip_code='1111 AA', city='Cityname', country='Nederland'), co2_today=2, co2_month=31, co2_total=7808, consumption_today=8, consumption_month=114, consumption_total=29176, has_consumption_meter=False, has_battery=False, timezone='Europe/Amsterdam', created_at=datetime.date(2023, 5, 15))
+  Site(
+    address=Address(
+      city='Cityname',
+      country='Nederland',
+      street='Streetname 00',
+      zip_code='1111 AA',
+    ),
+    co2_month=31,
+    co2_today=2,
+    co2_total=7808,
+    consumption_month=114,
+    consumption_today=8,
+    consumption_total=29176,
+    created_at=datetime.date(2023, 5, 15),
+    has_battery=False,
+    has_consumption_meter=False,
+    name='My Autarco solar installation',
+    public_key='site_key_1',
+    timezone='Europe/Amsterdam',
+  )
 # ---
 # name: test_get_solar
-  Solar(power_production=3323, energy_production_today=8, energy_production_month=114, energy_production_total=29176)
+  Solar(
+    energy_production_month=114,
+    energy_production_today=8,
+    energy_production_total=29176,
+    power_production=3323,
+  )
 # ---
 # name: test_power_statistics
-  Stats(graphs=Graphs(pv_power={'380016531035': {datetime.datetime(2024, 7, 11, 0, 0): 0, datetime.datetime(2024, 7, 11, 0, 15): 0, datetime.datetime(2024, 7, 11, 0, 30): 0, datetime.datetime(2024, 7, 11, 0, 45): 0, datetime.datetime(2024, 7, 11, 1, 0): 0, datetime.datetime(2024, 7, 11, 1, 15): 0, datetime.datetime(2024, 7, 11, 1, 30): 0, datetime.datetime(2024, 7, 11, 1, 45): 0, datetime.datetime(2024, 7, 11, 2, 0): 0, datetime.datetime(2024, 7, 11, 2, 15): 0, datetime.datetime(2024, 7, 11, 2, 30): 0, datetime.datetime(2024, 7, 11, 2, 45): 0, datetime.datetime(2024, 7, 11, 3, 0): 0, datetime.datetime(2024, 7, 11, 3, 15): 0, datetime.datetime(2024, 7, 11, 3, 30): 0, datetime.datetime(2024, 7, 11, 3, 45): 0, datetime.datetime(2024, 7, 11, 4, 0): 0, datetime.datetime(2024, 7, 11, 4, 15): 0, datetime.datetime(2024, 7, 11, 4, 30): 0, datetime.datetime(2024, 7, 11, 4, 45): 0, datetime.datetime(2024, 7, 11, 5, 0): 0, datetime.datetime(2024, 7, 11, 5, 15): 0, datetime.datetime(2024, 7, 11, 5, 30): 0, datetime.datetime(2024, 7, 11, 5, 45): 0, datetime.datetime(2024, 7, 11, 6, 0): 0, datetime.datetime(2024, 7, 11, 6, 15): 0, datetime.datetime(2024, 7, 11, 6, 30): 0, datetime.datetime(2024, 7, 11, 6, 45): 54, datetime.datetime(2024, 7, 11, 7, 0): 92, datetime.datetime(2024, 7, 11, 7, 15): 93, datetime.datetime(2024, 7, 11, 7, 30): 140, datetime.datetime(2024, 7, 11, 7, 45): 132, datetime.datetime(2024, 7, 11, 8, 0): 147, datetime.datetime(2024, 7, 11, 8, 15): 279, datetime.datetime(2024, 7, 11, 8, 30): 459, datetime.datetime(2024, 7, 11, 8, 45): 403, datetime.datetime(2024, 7, 11, 9, 0): 802, datetime.datetime(2024, 7, 11, 9, 15): 763, datetime.datetime(2024, 7, 11, 9, 30): 972, datetime.datetime(2024, 7, 11, 9, 45): 1203, datetime.datetime(2024, 7, 11, 10, 0): 1500, datetime.datetime(2024, 7, 11, 10, 15): 614, datetime.datetime(2024, 7, 11, 10, 30): 1050, datetime.datetime(2024, 7, 11, 10, 45): 1133, datetime.datetime(2024, 7, 11, 11, 0): 2298, datetime.datetime(2024, 7, 11, 11, 15): 2480, datetime.datetime(2024, 7, 11, 11, 30): 2275, datetime.datetime(2024, 7, 11, 11, 45): 1225, datetime.datetime(2024, 7, 11, 12, 0): 2403, datetime.datetime(2024, 7, 11, 12, 15): 2508, datetime.datetime(2024, 7, 11, 12, 30): 2354}}, pv_energy=None), kpis={'pv_now': 200})
+  Stats(
+    graphs=Graphs(
+      pv_energy=None,
+      pv_power=dict({
+        '380016531035': dict({
+          datetime.datetime(2024, 7, 11, 0, 0): 0,
+          datetime.datetime(2024, 7, 11, 0, 15): 0,
+          datetime.datetime(2024, 7, 11, 0, 30): 0,
+          datetime.datetime(2024, 7, 11, 0, 45): 0,
+          datetime.datetime(2024, 7, 11, 1, 0): 0,
+          datetime.datetime(2024, 7, 11, 1, 15): 0,
+          datetime.datetime(2024, 7, 11, 1, 30): 0,
+          datetime.datetime(2024, 7, 11, 1, 45): 0,
+          datetime.datetime(2024, 7, 11, 2, 0): 0,
+          datetime.datetime(2024, 7, 11, 2, 15): 0,
+          datetime.datetime(2024, 7, 11, 2, 30): 0,
+          datetime.datetime(2024, 7, 11, 2, 45): 0,
+          datetime.datetime(2024, 7, 11, 3, 0): 0,
+          datetime.datetime(2024, 7, 11, 3, 15): 0,
+          datetime.datetime(2024, 7, 11, 3, 30): 0,
+          datetime.datetime(2024, 7, 11, 3, 45): 0,
+          datetime.datetime(2024, 7, 11, 4, 0): 0,
+          datetime.datetime(2024, 7, 11, 4, 15): 0,
+          datetime.datetime(2024, 7, 11, 4, 30): 0,
+          datetime.datetime(2024, 7, 11, 4, 45): 0,
+          datetime.datetime(2024, 7, 11, 5, 0): 0,
+          datetime.datetime(2024, 7, 11, 5, 15): 0,
+          datetime.datetime(2024, 7, 11, 5, 30): 0,
+          datetime.datetime(2024, 7, 11, 5, 45): 0,
+          datetime.datetime(2024, 7, 11, 6, 0): 0,
+          datetime.datetime(2024, 7, 11, 6, 15): 0,
+          datetime.datetime(2024, 7, 11, 6, 30): 0,
+          datetime.datetime(2024, 7, 11, 6, 45): 54,
+          datetime.datetime(2024, 7, 11, 7, 0): 92,
+          datetime.datetime(2024, 7, 11, 7, 15): 93,
+          datetime.datetime(2024, 7, 11, 7, 30): 140,
+          datetime.datetime(2024, 7, 11, 7, 45): 132,
+          datetime.datetime(2024, 7, 11, 8, 0): 147,
+          datetime.datetime(2024, 7, 11, 8, 15): 279,
+          datetime.datetime(2024, 7, 11, 8, 30): 459,
+          datetime.datetime(2024, 7, 11, 8, 45): 403,
+          datetime.datetime(2024, 7, 11, 9, 0): 802,
+          datetime.datetime(2024, 7, 11, 9, 15): 763,
+          datetime.datetime(2024, 7, 11, 9, 30): 972,
+          datetime.datetime(2024, 7, 11, 9, 45): 1203,
+          datetime.datetime(2024, 7, 11, 10, 0): 1500,
+          datetime.datetime(2024, 7, 11, 10, 15): 614,
+          datetime.datetime(2024, 7, 11, 10, 30): 1050,
+          datetime.datetime(2024, 7, 11, 10, 45): 1133,
+          datetime.datetime(2024, 7, 11, 11, 0): 2298,
+          datetime.datetime(2024, 7, 11, 11, 15): 2480,
+          datetime.datetime(2024, 7, 11, 11, 30): 2275,
+          datetime.datetime(2024, 7, 11, 11, 45): 1225,
+          datetime.datetime(2024, 7, 11, 12, 0): 2403,
+          datetime.datetime(2024, 7, 11, 12, 15): 2508,
+          datetime.datetime(2024, 7, 11, 12, 30): 2354,
+        }),
+      }),
+    ),
+    kpis=dict({
+      'pv_now': 200,
+    }),
+  )
 # ---
 # name: test_power_statistics.1
   dict({
