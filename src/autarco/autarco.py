@@ -30,7 +30,7 @@ from .models import (
     Stats,
 )
 
-VERSION: str = metadata.version(__package__)  # ty:ignore[invalid-argument-type]
+VERSION: str = metadata.version("autarco")
 
 
 @dataclass

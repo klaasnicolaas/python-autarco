@@ -2,16 +2,16 @@
 name = "autarco"
 version = "0.0.0"
 description = "Asynchronous Python client for the Autarco Inverters"
-authors = [{ name="Klaas Schoute", email="<hello@student-techlife.com>"}]
-maintainers = [{name="Klaas Schoute", email="<hello@student-techlife.com>"}]
+authors = [{ name="Klaas Schoute", email="hello@student-techlife.com"}]
+maintainers = [{name="Klaas Schoute", email="hello@student-techlife.com"}]
 license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.12"
 readme = "README.md"
 keywords = ["autarco", "inverter", "power", "energy", "async", "client"]
 classifiers = [
     "Framework :: AsyncIO",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
@@ -19,17 +19,21 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-dynamic = ["dependencies"]
+
+dependencies = [
+  "aiohttp>=3.0.0",
+  "mashumaro>=3.12,<4.0.0",
+  "orjson>=3.9.14,<4.0.0",
+  "yarl>=1.6.0",
+]
+
+[tool.poetry]
 packages = [
     { include = "autarco", from = "src" },
 ]
 
 [tool.poetry.dependencies]
-aiohttp = ">=3.0.0"
-mashumaro = "^3.12"
-orjson = "^3.9.14"
 python = "^3.12"
-yarl = ">=1.6.0"
 
 [project.urls]
 homepage = "https://github.com/klaasnicolaas/python-autarco"
@@ -45,7 +49,6 @@ covdefaults = "2.3.0"
 coverage = {version = "7.16.0", extras = ["toml"]}
 pre-commit-hooks = "6.0.0"
 prek = "0.5.2"
-pylint = "4.0.8"
 pytest = "9.1.1"
 pytest-asyncio = "1.4.0"
 pytest-cov = "7.1.0"
@@ -53,6 +56,7 @@ ruff = "0.16.6"
 syrupy = "6.0.0"
 ty = "0.0.78"
 yamllint = "1.38.0"
+zizmor = "1.30.0"
 
 [tool.coverage.run]
 plugins = ["covdefaults"]
@@ -62,27 +66,8 @@ source = ["autarco"]
 fail_under = 90
 show_missing = true
 
-[tool.pylint.MASTER]
-ignore = ["tests"]
-
-[tool.pylint.BASIC]
-good-names = ["_", "ex", "fp", "i", "id", "j", "k", "on", "Run", "T"]
-
-[tool.pylint."MESSAGES CONTROL"]
-disable= [
-  "duplicate-code",
-  "format",
-  "unsubscriptable-object",
-]
-
-[tool.pylint.SIMILARITIES]
-ignore-imports = true
-
-[tool.pylint.FORMAT]
-max-line-length = 88
-
-[tool.pylint.DESIGN]
-max-attributes = 20
+[tool.ty.environment]
+python-version = "3.12"
 
 [tool.pytest.ini_options]
 addopts = "--cov"
@@ -115,5 +100,5 @@ known-first-party = ["autarco"]
 max-complexity = 25
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=2.2.0"]
 build-backend = "poetry.core.masonry.api"

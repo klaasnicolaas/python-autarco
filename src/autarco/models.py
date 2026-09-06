@@ -154,7 +154,6 @@ class Stats(DataClassORJSONMixin):
 class Site(DataClassORJSONMixin):
     """Object representing an Site model response from the API."""
 
-    # pylint: disable-next=too-few-public-methods
     class Config(BaseConfig):
         """Mashumaro configuration."""
 
