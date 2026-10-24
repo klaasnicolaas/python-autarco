@@ -9,7 +9,7 @@ from autarco import Autarco
 
 
 @pytest.fixture(name="autarco_client")
-async def client() -> AsyncGenerator[Autarco, None]:
+async def client() -> AsyncGenerator[Autarco]:
     """Return a Autarco client."""
     async with (
         ClientSession() as session,
